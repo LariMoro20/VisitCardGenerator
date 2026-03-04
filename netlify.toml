@@ -1,0 +1,133 @@
+[build]
+  # Comando de build
+  command = "npm run build"
+  
+  # Diretório de output do Nuxt (com preset netlify usa .output)
+  publish = "dist"
+  
+  # Variáveis de ambiente para build
+  environment = { NODE_VERSION = "22", NETLIFY_CACHE_INVALIDATION = "true" }
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Netlify Functions (geradas automaticamente pelo preset)
+
+# Headers para melhor performance e SEO
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Headers SEO importantes
+    X-DNS-Prefetch-Control = "on"
+    # Preconnect para recursos externos
+    Link = "</assets/fonts/Inter-normal-400.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </assets/fonts/Inter-normal-700.woff2>; rel=preload; as=font; type=font/woff2; crossorigin"
+
+# Headers para assets estáticos (cache longo)
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers para imagens (cache mais curto para atualizações frequentes)
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=7200, must-revalidate"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=7200, must-revalidate"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=7200, must-revalidate"
+    Vary = "Accept-Encoding"
+
+# Headers para imagens específicas na pasta assets (cache mais longo com versionamento)
+[[headers]]
+  for = "/assets/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "/assets/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+[[headers]]
+  for = "/assets/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Vary = "Accept-Encoding"
+
+# Configuração para sitemap e robots (cache curto para atualizações)
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml"
+    Cache-Control = "public, max-age=1800, must-revalidate"
+    X-Robots-Tag = "noarchive"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain"
+    Cache-Control = "public, max-age=1800, must-revalidate"
+
+# Headers específicos para páginas importantes de SEO
+[[headers]]
+  for = "/faq"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Robots-Tag = "index, follow"
+
+# Headers para APIs e conteúdo dinâmico
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+    X-Robots-Tag = "noindex"
+
+# Cache busting para arquivos Nuxt gerados
+[[headers]]
+  for = "/_nuxt/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Headers para fontes
+[[headers]]
+  for = "*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Access-Control-Allow-Origin = "*"
+
+# Configurações de performance
+[build.processing.images]
+  compress = true
