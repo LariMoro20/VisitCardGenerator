@@ -27,23 +27,10 @@
       </UPageCard>
     </UPageGrid>
   </UContainer>
-  <LinghtboxGalery v-if="cards" :images="images" v-model="selectedIndex" />
+  <LinghtboxGalery v-if="cards" v-model="selectedIndex" :images="images" />
 </template>
 
 <script setup lang="ts">
-<<<<<<< HEAD
-  const cards = ref([
-    {
-      title: 'Site Curso Vuejs',
-      description: 'Learn how to customize Nuxt UI components using Tailwind CSS.',
-      class: 'hover:bg-neutral-100 cursor-pointer',
-      to: 'https://cursovuejs.com.br/',
-      target: '_blank',
-      image: {
-        path: '/cursovue.png',
-      },
-      orientation: 'vertical' as const
-=======
 const cards = ref([
   {
     title: "Defina suas informações principais",
@@ -53,7 +40,6 @@ const cards = ref([
     alt: "Editor parte 1: Informações principais e contatos ",
     image: {
       path: "/images/app_assets/step1.png",
->>>>>>> 3865fe2 (Send project to github)
     },
     orientation: "vertical" as const,
   },
