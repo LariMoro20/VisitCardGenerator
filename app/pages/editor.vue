@@ -15,7 +15,7 @@
           dark="/images/genlogo_white.png"
           :height="42"
           format="webp"
-          class="h-[42px]"
+          class="h-10.5"
         />
       </NuxtLink>
       <h1 class="font-serif text-2xl font-normal">

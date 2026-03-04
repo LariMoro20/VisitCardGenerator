@@ -37,12 +37,6 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: "pt-BR",
       },
-      meta: [
-        {
-          name: "keywords",
-          keywords: "cartao de visita, visitcard, pdf, generator, marketing",
-        },
-      ],
       link: [
         {
           rel: "stylesheet",

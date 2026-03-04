@@ -13,7 +13,7 @@
           dark="/images/genlogo_white.png"
           :height="42"
           format="webp"
-          class="h-[42px]"
+          class="h-10.5"
         />
       </NuxtLink>
     </template>
@@ -40,13 +40,6 @@
     <template #right>
       <UColorModeButton />
     </template>
-<<<<<<< HEAD
-=======
-
-    <template #body>
-      <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
-    </template>
->>>>>>> 3865fe2 (Send project to github)
   </UHeader>
 </template>
 
