@@ -1,0 +1,87 @@
+<template>
+  <UContainer id="editor">
+    <UPageCTA
+      title="Conheça o editor"
+      description="Nosso editor possui todas as formas de edição que você precisa: adicione imagens, contatos, personalize com sua logo, padrões e muito mais!"
+      variant="naked"
+      :ui="{
+        container: 'lg:pb-16',
+        title: 'text-primary dark:text-secondary',
+        description: 'text-primary/80 dark:text-white/80',
+      }"
+    />
+    <UPageGrid>
+      <UPageCard
+        v-for="(card, index) in cards"
+        :key="index"
+        v-bind="card"
+        @click="selectedIndex = index"
+      >
+        <nuxt-img
+          v-if="card.image"
+          :src="card.image.path"
+          :alt="card.alt"
+          class="w-full"
+          loading="lazy"
+        />
+      </UPageCard>
+    </UPageGrid>
+  </UContainer>
+  <LinghtboxGalery v-if="cards" :images="images" v-model="selectedIndex" />
+</template>
+
+<script setup lang="ts">
+<<<<<<< HEAD
+  const cards = ref([
+    {
+      title: 'Site Curso Vuejs',
+      description: 'Learn how to customize Nuxt UI components using Tailwind CSS.',
+      class: 'hover:bg-neutral-100 cursor-pointer',
+      to: 'https://cursovuejs.com.br/',
+      target: '_blank',
+      image: {
+        path: '/cursovue.png',
+      },
+      orientation: 'vertical' as const
+=======
+const cards = ref([
+  {
+    title: "Defina suas informações principais",
+    description:
+      "Nessa primeira etapa, são definidas as informações sobre a empresa como logotipo, nome, descrição e contatos.",
+    class: "hover:bg-neutral-100 cursor-pointer",
+    alt: "Editor parte 1: Informações principais e contatos ",
+    image: {
+      path: "/images/app_assets/step1.png",
+>>>>>>> 3865fe2 (Send project to github)
+    },
+    orientation: "vertical" as const,
+  },
+  {
+    title: "Informe seus contatos",
+    description:
+      "Na segunda etapa, são definidas as cores do cartão, estilo e imagens de fundo.",
+    class: "hover:bg-neutral-100 cursor-pointer",
+    alt: "Editor parte 2: Estilo do cartão ",
+
+    image: {
+      path: "/images/app_assets/step2.png",
+    },
+    orientation: "vertical" as const,
+  },
+  {
+    title: "Personalize o verso",
+    description:
+      "Também é possível personalizar o verso do cartão, com as informações e estilos de sua preferência.",
+    class: "hover:bg-neutral-100 cursor-pointer",
+    alt: "Editor parte 3: personalize o verso ",
+
+    image: {
+      path: "/images/app_assets/step3.png",
+    },
+    orientation: "vertical" as const,
+  },
+]);
+const images = computed(() => cards.value.map((c) => c.image.path));
+const selectedIndex = ref<number | null>(null);
+</script>

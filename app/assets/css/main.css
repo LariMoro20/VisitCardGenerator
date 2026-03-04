@@ -1,0 +1,26 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-primary: #0b2a4a;
+  --color-secondary: #bd9f68;
+  --color-accent: #7b3fe4;
+  --color-positive: #2e9e41;
+  --color-info: #5c6b7a;
+  --color-warning: #f29b38;
+  --color-negative: #c0392b;
+  --font-heading: "Times Ten", serif;
+  --font-body: "Roboto", sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+html,
+body {
+  overflow-x: hidden;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
