@@ -11,7 +11,7 @@
   >
     <AnimationsReveal :duration="1" direction="left" type="scale">
       <nuxt-img
-        src="/generatorPrint.png"
+        src="/images/app_assets/step1.png"
         alt="App screenshot"
         class="rounded-lg shadow-2xl ring ring-default"
       />
