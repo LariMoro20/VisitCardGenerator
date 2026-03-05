@@ -1,11 +1,11 @@
 <template>
   <div
-    class="flex items-center gap-2 bg-[#0f0f0f] border border-[#2a2a2a] rounded-lg px-2.5 py-1.5 focus-within:border-[#c9a96e] transition-colors"
+    class="flex items-center gap-2 border border-[var(--color-secondary)] rounded-lg px-2.5 py-1.5 focus-within:border-[var(--color-secondary)] transition-colors"
   >
     <input
       type="color"
       :value="modelValue"
-      class="w-6.5 h-6.5 rounded-[5px] color-input"
+      class="color-swatch"
       @input="
         emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
@@ -14,7 +14,7 @@
       type="text"
       :value="modelValue"
       maxlength="7"
-      class="text-sm text-[#e8e4dc] flex-1 bg-transparent border-0 outline-none p-0"
+      class="text-sm text-[var(--color-text)] bg-transparent border-0 outline-none p-0 w-0 flex-1 min-w-0"
       @input="
         emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
@@ -28,17 +28,41 @@ const emit = defineEmits<{ "update:modelValue": [value: string] }>();
 </script>
 
 <style scoped>
-.color-input {
+.color-swatch {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  flex-shrink: 0;
   border: none;
   padding: 0;
   cursor: pointer;
   background: none;
+  border-radius: 6px;
 }
-.color-input::-webkit-color-swatch-wrapper {
+
+/* Usando a cor secundária para a borda */
+.color-swatch::-webkit-color-swatch-wrapper {
   padding: 0;
 }
-.color-input::-webkit-color-swatch {
+.color-swatch::-webkit-color-swatch {
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  background-color: var(
+    --color-primary
+  ); /* Cor primária para o fundo do seletor de cor */
+}
+
+/* Para o modo escuro */
+html.dark .color-swatch::-webkit-color-swatch {
+  background-color: var(
+    --color-background-dark
+  ); /* Garantindo visibilidade no modo escuro */
+}
+
+.color-swatch::-moz-color-swatch {
+  border: none;
+  border-radius: 6px;
 }
 </style>

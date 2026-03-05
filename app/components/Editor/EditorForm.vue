@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="bg-[#181818] border-r border-[#2a2a2a] px-[22px] py-6 overflow-y-auto flex flex-col gap-4"
+    class="border-r border-[var(--color-secondary)] px-[22px] py-6 overflow-y-auto flex flex-col gap-4"
   >
     <EditorSectionLabel>Identidade</EditorSectionLabel>
 
@@ -27,7 +27,6 @@
         placeholder="Ex: Studio Forma"
         :maxlength="50"
         :ui="inputUi"
-        class="w-full"
       />
     </EditorFormField>
 
@@ -38,7 +37,6 @@
         :maxlength="200"
         :rows="3"
         :ui="inputUi"
-        class="w-full"
       />
     </EditorFormField>
 
@@ -51,7 +49,6 @@
         placeholder="+55 (11) 9 0000-0000"
         type="tel"
         :ui="inputUi"
-        class="w-full"
       />
     </EditorFormField>
     <EditorFormField label="E-mail">
@@ -60,7 +57,6 @@
         placeholder="contato@empresa.com.br"
         type="email"
         :ui="inputUi"
-        class="w-full"
       />
     </EditorFormField>
     <EditorFormField label="Site">
@@ -69,7 +65,6 @@
         placeholder="www.empresa.com.br"
         type="url"
         :ui="inputUi"
-        class="w-full"
       />
     </EditorFormField>
 
@@ -115,7 +110,8 @@
     </div>
 
     <div class="flex items-center gap-2.5">
-      <label class="text-sm text-[#a09a94] font-medium whitespace-nowrap"
+      <label
+        class="text-sm text-[var(--color-secondary)] font-medium whitespace-nowrap"
         >Opacidade overlay</label
       >
       <input
@@ -124,9 +120,9 @@
         min="0"
         max="1"
         step="0.05"
-        class="flex-1 accent-[#c9a96e] cursor-pointer"
+        class="flex-1 accent-[var(--color-secondary)] cursor-pointer"
       />
-      <span class="text-[.78rem] text-[#6b6662] min-w-[32px] text-right"
+      <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right"
         >{{ Math.round(form.bgOpacity * 100) }}%</span
       >
     </div>
@@ -139,7 +135,11 @@
         v-for="p in PATTERNS"
         :key="p.id"
         class="rounded-md border-2 cursor-pointer overflow-hidden transition-colors"
-        :class="form.padrao === p.id ? 'border-[#c9a96e]' : 'border-[#2a2a2a]'"
+        :class="
+          form.padrao === p.id
+            ? 'border-[var(--color-secondary)]'
+            : 'border-[var(--color-primary)]'
+        "
         style="aspect-ratio: 1.75"
         :style="{ background: form.corVerso }"
         :title="p.label"
@@ -155,7 +155,7 @@
     </div>
 
     <div class="flex items-center gap-2.5">
-      <label class="text-[.82rem] text-[#a09a94] font-medium flex-1"
+      <label class="text-[.82rem] text-[var(--color-text)] font-medium flex-1"
         >Usar padrão também na frente</label
       >
       <UToggle v-model="form.padraoNaFrente" color="yellow" />
@@ -166,7 +166,7 @@
       size="lg"
       :loading="gerando"
       :disabled="!formValido || gerando"
-      class="mt-1 bg-[#c9a96e] hover:bg-[#c9a96e]/90 text-[#0f0f0f] font-semibold"
+      class="mt-1 font-semibold bg-[var(--color-secondary)] hover:opacity-90 text-[var(--color-background)]"
       @click="emit('gerar')"
     >
       {{ gerando ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
@@ -195,7 +195,7 @@ const form = defineModel<{
   bgOpacity: number;
 }>("form", { required: true });
 
-const props = defineProps<{
+defineProps<{
   logoPreview: string | null;
   bgImages: Record<string, string | null>;
   gerando: boolean;
@@ -209,8 +209,9 @@ const emit = defineEmits<{
 }>();
 
 const inputUi = {
-  base: "bg-[#0f0f0f] border border-[#2a2a2a] text-[#e8e4dc] focus:border-[#c9a96e] transition-colors",
-  placeholder: "text-[#6b6662]",
+  root: "w-full",
+  base: "w-full border border-[var(--color-secondary)] text-[var(--color-text)] focus:border-[var(--color-primary)] transition-colors bg-transparent",
+  placeholder: "text-[var(--color-placeholder)]",
 };
 
 const colorFields: Record<ColorKey, string> = {
