@@ -2,8 +2,6 @@
 
 > Gere cartões de visita profissionais em PDF — frente e verso — direto no navegador.
 
-<br />
-
 ## Visão geral
 
 VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client — nenhum dado é enviado para servidores.
@@ -14,8 +12,8 @@ VisitCardGenerator é uma aplicação web para criação de cartões de visita p
 - Upload de logotipo e imagem de fundo com controle de opacidade
 - Paleta de cores totalmente customizável
 - Modo claro e escuro
+- Layout responsivo — funciona em mobile e desktop
 
-<br />
 
 ## Stack
 
@@ -23,11 +21,11 @@ VisitCardGenerator é uma aplicação web para criação de cartões de visita p
 | --------- | -------------------------------------------------------- |
 | Framework | [Nuxt 3](https://nuxt.com)                               |
 | UI        | [NuxtUI](https://ui.nuxt.com) + Tailwind CSS             |
+| Animações | [motion-vue](https://motion.unovue.com/)  |
 | PDF       | [jsPDF](https://github.com/parallax/jsPDF)               |
 | Captura   | [html-to-image](https://github.com/bubkoo/html-to-image) |
 | Fontes    | Playfair Display + DM Sans (Google Fonts)                |
 
-<br />
 
 ## Estrutura
 
@@ -41,16 +39,18 @@ components/Editor/
   patterns.ts                 ← 8 padrões SVG compartilhados
   EditorForm.vue              ← painel de formulário
   EditorPreview.vue           ← painel de preview com tabs
+  PatternPicker.vue           ← seletor de padrões geométricos
+  ColorPicker.vue             ← input de cor com preview
   SectionLabel.vue
   FormField.vue
-  ColorPicker.vue
 
 layouts/
   default.vue                 ← OG Image + slot
 
+components/
+  NavHeader.vue               ← header com drawer mobile
 ```
 
-<br />
 
 ## Como rodar
 
@@ -65,7 +65,6 @@ npm run dev
 npm run build
 ```
 
-<br />
 
 ## Decisões técnicas
 
@@ -75,7 +74,9 @@ O Tailwind v4 usa `oklch()` nas variáveis CSS. O `html2canvas` não suporta ess
 **Por que os componentes de cartão usam 100% `style` inline?**
 O `html-to-image` captura o elemento diretamente do DOM. Classes Tailwind dependem de stylesheets externos — se removidas ou não resolvidas no clone, o layout quebra. Com `style` inline, o componente é a fonte única de verdade tanto para o preview quanto para o PDF, sem nenhuma lógica de reconstrução.
 
-<br />
+**Responsividade do preview**
+O cartão tem dimensões fixas em px (520×296) necessárias para o PDF. Para funcionar em telas menores, o preview usa `transform: scale()` calculado dinamicamente — o wrapper compensa o espaço com `width/height` proporcionais ao scale, evitando cortes ou espaços em branco.
+
 
 ## Licença
 
