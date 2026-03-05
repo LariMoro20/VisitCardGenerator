@@ -115,7 +115,8 @@
       size="lg"
       :loading="gerando"
       :disabled="!formValido || gerando"
-      class="mt-1 font-semibold bg-[var(--color-secondary)] hover:opacity-90 text-[var(--color-background)]"
+      :color="isDark ? 'secondary' : 'primary'"
+      class="text-white hover:opacity-90"
       @click="emit('gerar')"
     >
       {{ gerando ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
@@ -124,6 +125,9 @@
 </template>
 
 <script setup lang="ts">
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === "dark");
+
 const props = defineProps<{
   logoPreview: string | null;
   bgImages: Record<string, string | null>;
