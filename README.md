@@ -1,4 +1,4 @@
-# Visit Card Generator
+# VisitCardGenerator
 
 > Gere cartões de visita profissionais em PDF — frente e verso — direto no navegador.
 
@@ -6,7 +6,7 @@
 
 ## Visão geral
 
-Visit Card Generator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client — nenhum dado é enviado para servidores.
+VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client — nenhum dado é enviado para servidores.
 
 - **Preview em tempo real** enquanto você edita
 - **PDF frente e verso** no tamanho padrão 88,9 × 50,8 mm
@@ -85,7 +85,7 @@ MIT com obrigatoriedade de atribuição para uso comercial.
 Você pode fazer fork, modificar e distribuir livremente. Para uso **comercial ou profissional** — SaaS, projetos de clientes, serviços pagos — é obrigatório incluir crédito visível na interface da aplicação:
 
 ```
-Baseado em Visit Card Generator — github.com/[seu-usuario]/cardmint
+Baseado em VisitCardGenerator — github.com/LariMoro20/VisitCardGenerator
 ```
 
 Uso pessoal e educacional é livre, sem restrições. Veja o arquivo [`LICENSE`](./LICENSE) para os termos completos.
