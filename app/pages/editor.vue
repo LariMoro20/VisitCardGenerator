@@ -53,9 +53,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
+defineOgImageComponent("NuxtSeo", {
+  title: "Create",
+  description: "Crie seu cartão de visita de forma prática e fácil",
+  theme: "#111111",
+  colorMode: "dark",
+});
 
-// Definindo o estado do form e demais variáveis (como antes)
 const form = reactive({
   empresa: "",
   descricao: "",
