@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 defineOgImageComponent("NuxtSeo", {
-  title: "Create",
+  title: "Criando seu cartão de visitas",
   description: "Crie seu cartão de visita de forma prática e fácil",
   theme: "#111111",
   colorMode: "dark",
