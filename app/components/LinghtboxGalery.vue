@@ -37,12 +37,8 @@
         >
           ›
         </button>
-
-        <NuxtImg
+        <img
           :src="selectedImage"
-          :width="1200"
-          :quality="90"
-          format="webp"
           class="max-w-full max-h-[90vh] rounded-xl object-contain shadow-2xl"
         />
       </div>
