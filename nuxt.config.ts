@@ -78,7 +78,6 @@ export default defineNuxtConfig({
     preset: "vercel",
     prerender: {
       crawlLinks: true,
-      routes: ["/blog"],
     },
     routeRules: {
       "/_ipx/**": { headers: { "cache-control": "max-age=604800, public" } },
