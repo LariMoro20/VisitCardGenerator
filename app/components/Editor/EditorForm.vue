@@ -72,13 +72,12 @@
     <EditorSectionLabel>Cores</EditorSectionLabel>
 
     <div class="grid grid-cols-2 gap-2.5">
-      <EditorFormField
+      <EditorColorPicker
         v-for="(label, key) in colorFields"
         :key="key"
+        v-model="form[key as ColorKey]"
         :label="label"
-      >
-        <EditorColorPicker v-model="form[key as ColorKey]" />
-      </EditorFormField>
+      />
     </div>
 
     <USeparator />
