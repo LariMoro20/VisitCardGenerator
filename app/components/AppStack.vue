@@ -3,7 +3,7 @@
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
       <UPageCTA
         title="Stack de tecnologia"
-        description="Algumas tecnologias e ferramentas usadas"
+        description="Algumas das tecnologias e ferramentas que trabalho"
         variant="naked"
         :ui="{
           container: 'pb-10!',

@@ -1,11 +1,10 @@
 <template>
   <div>
     <AppHeader />
-
     <AppHero id="hero" />
     <AppCards id="editor" />
-    <AppStack id="stack" />
     <AppAbout id="author" />
+    <AppStack id="stack" />
     <AppFooter />
   </div>
 </template>
