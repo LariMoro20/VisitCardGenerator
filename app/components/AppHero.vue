@@ -9,10 +9,12 @@
       description: 'text-primary/80 dark:text-white/80',
     }"
   >
-    <nuxt-img
-      src="/generatorPrint.png"
-      alt="App screenshot"
-      class="rounded-lg shadow-2xl ring ring-default"
-    />
+    <AnimationsReveal :duration="1" direction="left" type="scale">
+      <nuxt-img
+        src="/generatorPrint.png"
+        alt="App screenshot"
+        class="rounded-lg shadow-2xl ring ring-default"
+      />
+    </AnimationsReveal>
   </UPageHero>
 </template>

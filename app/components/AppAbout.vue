@@ -9,23 +9,27 @@
       description: 'text-[var(--color-text)]',
     }"
   >
-    <div
-      v-for="feature in features"
+    <AnimationsReveal
+      v-for="(feature, i) in features"
       :key="feature.title"
-      class="flex items-center gap-4"
+      type="fade-slide"
+      direction="up"
+      :delay="i * 0.5"
     >
-      <Icon
-        :name="feature.icon"
-        :style="{ color: 'var(--color-secondary)' }"
-        size="24"
-      />
-      <div>
-        <h3 class="font-semibold text-[var(--color-text)]">
-          {{ feature.title }}
-        </h3>
-        <p class="text-[var(--color-text)]">{{ feature.description }}</p>
-      </div>
-    </div>
+      <div class="flex items-center gap-4">
+        <Icon
+          :name="feature.icon"
+          :style="{ color: 'var(--color-secondary)' }"
+          size="24"
+        />
+        <div>
+          <h3 class="font-semibold text-[var(--color-text)]">
+            {{ feature.title }}
+          </h3>
+          <p class="text-[var(--color-text)]">{{ feature.description }}</p>
+        </div>
+      </div></AnimationsReveal
+    >
   </UPageSection>
 </template>
 

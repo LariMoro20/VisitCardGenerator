@@ -1,30 +1,33 @@
 <template>
   <UContainer id="editor">
-    <UPageCTA
-      title="Conheça o editor"
-      description="Nosso editor possui todas as formas de edição que você precisa: adicione imagens, contatos, personalize com sua logo, padrões e muito mais!"
-      variant="naked"
-      :ui="{
-        container: 'lg:pb-16',
-        title: 'text-primary dark:text-secondary',
-        description: 'text-primary/80 dark:text-white/80',
-      }"
-    />
+    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+      <UPageCTA
+        title="Conheça o editor"
+        description="Nosso editor possui todas as formas de edição que você precisa: adicione imagens, contatos, personalize com sua logo, padrões e muito mais!"
+        variant="naked"
+        :ui="{
+          container: 'lg:pb-16',
+          title: 'text-primary dark:text-secondary',
+          description: 'text-primary/80 dark:text-white/80',
+        }"
+    /></AnimationsReveal>
     <UPageGrid>
-      <UPageCard
-        v-for="(card, index) in cards"
-        :key="index"
-        v-bind="card"
-        @click="selectedIndex = index"
+      <AnimationsReveal
+        v-for="(card, i) in cards"
+        :key="i"
+        type="fade-slide"
+        direction="up"
+        :delay="i * 0.5"
       >
-        <nuxt-img
-          v-if="card.image"
-          :src="card.image.path"
-          :alt="card.alt"
-          class="w-full"
-          loading="lazy"
-        />
-      </UPageCard>
+        <UPageCard v-bind="card" @click="selectedIndex = i">
+          <nuxt-img
+            v-if="card.image"
+            :src="card.image.path"
+            :alt="card.alt"
+            class="w-full"
+            loading="lazy"
+          /> </UPageCard
+      ></AnimationsReveal>
     </UPageGrid>
   </UContainer>
   <LinghtboxGalery v-if="cards" v-model="selectedIndex" :images="images" />
