@@ -1,10 +1,10 @@
 # VisitCardGenerator
 
-> Gere cartões de visita profissionais em PDF — frente e verso — direto no navegador.
+> Gere cartões de visita profissionais em PDF, frente e verso, direto no navegador.
 
 ## Visão geral
 
-VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client — nenhum dado é enviado para servidores.
+VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client, nenhum dado é enviado para servidores.
 
 - **Preview em tempo real** enquanto você edita
 - **PDF frente e verso** no tamanho padrão 88,9 × 50,8 mm
@@ -12,7 +12,7 @@ VisitCardGenerator é uma aplicação web para criação de cartões de visita p
 - Upload de logotipo e imagem de fundo com controle de opacidade
 - Paleta de cores totalmente customizável
 - Modo claro e escuro
-- Layout responsivo — funciona em mobile e desktop
+- Layout responsivo, funciona em mobile e desktop
 
 
 ## Stack
@@ -75,14 +75,14 @@ O Tailwind v4 usa `oklch()` nas variáveis CSS. O `html2canvas` não suporta ess
 O `html-to-image` captura o elemento diretamente do DOM. Classes Tailwind dependem de stylesheets externos — se removidas ou não resolvidas no clone, o layout quebra. Com `style` inline, o componente é a fonte única de verdade tanto para o preview quanto para o PDF, sem nenhuma lógica de reconstrução.
 
 **Responsividade do preview**
-O cartão tem dimensões fixas em px (520×296) necessárias para o PDF. Para funcionar em telas menores, o preview usa `transform: scale()` calculado dinamicamente — o wrapper compensa o espaço com `width/height` proporcionais ao scale, evitando cortes ou espaços em branco.
+O cartão tem dimensões fixas em px (520×296) necessárias para o PDF. Para funcionar em telas menores, o preview usa `transform: scale()` calculado dinamicamente. O wrapper compensa o espaço com `width/height` proporcionais ao scale, evitando cortes ou espaços em branco.
 
 
 ## Licença
 
 MIT com obrigatoriedade de atribuição para uso comercial.
 
-Você pode fazer fork, modificar e distribuir livremente. Para uso **comercial ou profissional** — SaaS, projetos de clientes, serviços pagos — é obrigatório incluir crédito visível na interface da aplicação:
+Você pode fazer fork, modificar e distribuir livremente. Para uso **comercial ou profissional** (SaaS, projetos de clientes, serviços pagos) é obrigatório incluir crédito visível na interface da aplicação:
 
 ```
 Baseado em VisitCardGenerator — github.com/LariMoro20/VisitCardGenerator
