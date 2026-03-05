@@ -4,7 +4,7 @@
     <AppHero id="hero" />
     <AppCards id="editor" />
     <AppAbout id="author" />
-    <AppStack id="stack" />
+    <AuthorStack id="stack" />
     <AppFooter />
   </div>
 </template>

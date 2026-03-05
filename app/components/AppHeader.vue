@@ -147,8 +147,8 @@ const isScrolled = ref(false);
 const navLinks = [
   { label: "Inicio", to: "#hero" },
   { label: "Sobre o editor", to: "#editor" },
-  { label: "Stack", to: "#stack" },
   { label: "Autora", to: "#author" },
+  { label: "Stack", to: "#stack" },
   {
     label: "Github",
     to: "https://github.com/LariMoro20",
