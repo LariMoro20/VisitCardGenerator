@@ -13,16 +13,19 @@
 <script setup lang="ts">
 defineOgImageComponent("NuxtSeo", {
   title: "VisitCardGenerator",
-  description: "Criando seu cartão de visita de forma prática",
+  description:
+    "Crie cartões de visita profissionais em PDF, direto no navegador.",
   theme: "#111111",
   colorMode: "dark",
 });
 
 useSeoMeta({
   titleTemplate: "%s",
-  title: "VisitCardGenerator",
-  description: "Criando seu cartão de visita de forma prática",
-  ogTitle: "VisitCardGenerator — Criado seu cartão de visita de forma prática",
-  ogDescription: "Criado seu cartão de visita de forma prática",
+  title: "VisitCardGenerator | Cartão de visita em PDF",
+  description:
+    "Gere cartões de visita profissionais com frente e verso em PDF. Personalize cores, logo, padrões e baixe na hora, sem cadastro.",
+  ogTitle: "VisitCardGenerator | Cartão de visita em PDF",
+  ogDescription:
+    "Gere cartões de visita profissionais com frente e verso em PDF. Personalize cores, logo, padrões e baixe na hora, sem cadastro.",
 });
 </script>

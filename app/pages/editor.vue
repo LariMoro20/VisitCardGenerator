@@ -69,10 +69,19 @@
 import { ref, reactive, computed } from "vue";
 
 defineOgImageComponent("NuxtSeo", {
-  title: "Criando seu cartão de visitas",
-  description: "Crie seu cartão de visita de forma prática e fácil",
+  title: "Editor de Cartão de Visita",
+  description: "Personalize e baixe seu cartão de visita em PDF agora mesmo.",
   theme: "#111111",
   colorMode: "dark",
+});
+
+useSeoMeta({
+  title: "Editor | VisitCardGenerator",
+  description:
+    "Personalize cores, logo, padrões geométricos e imagem de fundo. Baixe seu cartão de visita em PDF com frente e verso em segundos.",
+  ogTitle: "Editor | VisitCardGenerator",
+  ogDescription:
+    "Personalize cores, logo, padrões geométricos e imagem de fundo. Baixe seu cartão de visita em PDF com frente e verso em segundos.",
 });
 
 const form = reactive({

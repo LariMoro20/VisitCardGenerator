@@ -1,5 +1,4 @@
 <template>
-  <!-- HEADER -->
   <header
     :class="[
       'fixed top-0 inset-x-0 z-50 transition-all duration-300',
