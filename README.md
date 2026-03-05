@@ -44,7 +44,6 @@ components/Editor/
   SectionLabel.vue
   FormField.vue
   ColorPicker.vue
-  FileUploadBox.vue
 
 layouts/
   default.vue                 ← OG Image + slot

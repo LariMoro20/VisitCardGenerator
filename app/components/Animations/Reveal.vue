@@ -13,7 +13,6 @@
 
 <script setup lang="ts">
 import { Motion } from "motion-v";
-import { computed } from "vue";
 
 type Direction = "up" | "down" | "left" | "right";
 type AnimationType = "fade-slide" | "fade" | "slide" | "scale";
