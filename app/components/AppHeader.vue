@@ -53,6 +53,9 @@
         variant="ghost"
         aria-label="Abrir menu"
         icon
+        :ui="{
+          base: 'text-[var(--color-primary)] dark:text-[var(--color-secondary)]',
+        }"
         @click="openDrawer"
       >
         <Icon name="i-lucide-menu" size="22" />
@@ -62,7 +65,7 @@
 
   <div
     v-if="drawerOpen"
-    class="text-primary dark:text-secondary z-[90] md:hidden"
+    class="fixed inset-0 bg-black/30 z-[90] md:hidden"
     @click="closeDrawer"
   />
 
@@ -89,6 +92,9 @@
           variant="ghost"
           aria-label="Fechar menu"
           icon
+          :ui="{
+            base: 'text-[var(--color-primary)] dark:text-[var(--color-secondary)]',
+          }"
           @click="closeDrawer"
         >
           <Icon name="i-lucide-x" size="20" />
