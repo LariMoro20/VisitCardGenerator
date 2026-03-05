@@ -166,7 +166,15 @@
       size="lg"
       :loading="gerando"
       :disabled="!formValido || gerando"
-      class="mt-1 font-semibold bg-[var(--color-secondary)] hover:opacity-90 text-[var(--color-background)]"
+      class="mt-1 text-[var(--color-text)] font-semibold"
+      :style="{
+        backgroundColor: 'var(--color-secondary)',
+        borderColor: 'var(--color-secondary)',
+        ':hover': {
+          backgroundColor: 'var(--color-secondary)',
+          opacity: 0.9,
+        },
+      }"
       @click="emit('gerar')"
     >
       {{ gerando ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
