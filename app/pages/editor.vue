@@ -23,12 +23,11 @@
         class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase"
         >PDF frente e verso</span
       >
-      <!-- Botão de Toggle do Modo -->
       <UColorModeButton class="ml-4" />
     </header>
 
     <div class="grid grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden">
-      <div class="min-h-0 overflow-y-auto">
+      <div class="min-h-0 overflow-y-auto overflow-x-hidden">
         <EditorForm
           v-model:form="form"
           :logo-preview="logoPreview"
@@ -48,6 +47,14 @@
           :card-verso-props="cardVersoProps"
         />
       </div>
+      <footer
+        class="border-t border-[var(--color-secondary)] px-5 py-3 flex items-center justify-center"
+      >
+        <p class="text-[0.75rem] text-[var(--color-text)] opacity-50">
+          Copyright © {{ new Date().getFullYear() }} Larissa Santos. Todos os
+          direitos reservados.
+        </p>
+      </footer>
     </div>
   </div>
 </template>
