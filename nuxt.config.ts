@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
   colorMode: {
-    preference: "system", // padrão inicial (system | light | dark)
+    preference: "dark", // (system | light | dark)
     fallback: "light",
   },
   ssr: true,

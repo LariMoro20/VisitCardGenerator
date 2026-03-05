@@ -18,8 +18,9 @@
         type="fade-slide"
         direction="up"
         :delay="i * 0.5"
+        class="h-full"
       >
-        <UPageCard v-bind="card" @click="selectedIndex = i">
+        <UPageCard v-bind="card" class="h-full" @click="selectedIndex = i">
           <nuxt-img
             v-if="card.image"
             :src="card.image.path"
@@ -36,38 +37,30 @@
 <script setup lang="ts">
 const cards = ref([
   {
-    title: "Defina suas informações principais",
+    title: "Identidade e contatos",
     description:
-      "Nessa primeira etapa, são definidas as informações sobre a empresa como logotipo, nome, descrição e contatos.",
+      "Adicione logotipo, nome da empresa, descrição e informações de contato como telefone, e-mail e site.",
     class: "hover:bg-neutral-100 cursor-pointer",
-    alt: "Editor parte 1: Informações principais e contatos ",
-    image: {
-      path: "/images/app_assets/step1.png",
-    },
+    alt: "Editor parte 1: Informações principais e contatos",
+    image: { path: "/images/app_assets/step1.png" },
     orientation: "vertical" as const,
   },
   {
-    title: "Informe seus contatos",
+    title: "Cores e estilo",
     description:
-      "Na segunda etapa, são definidas as cores do cartão, estilo e imagens de fundo.",
+      "Personalize as cores do cartão, escolha um padrão geométrico e adicione imagem de fundo com controle de opacidade.",
     class: "hover:bg-neutral-100 cursor-pointer",
-    alt: "Editor parte 2: Estilo do cartão ",
-
-    image: {
-      path: "/images/app_assets/step2.png",
-    },
+    alt: "Editor parte 2: Estilo do cartão",
+    image: { path: "/images/app_assets/step2.png" },
     orientation: "vertical" as const,
   },
   {
     title: "Personalize o verso",
     description:
-      "Também é possível personalizar o verso do cartão, com as informações e estilos de sua preferência.",
+      "Configure o verso com logo, nome e padrão próprio. Baixe o PDF com frente e verso prontos para impressão.",
     class: "hover:bg-neutral-100 cursor-pointer",
-    alt: "Editor parte 3: personalize o verso ",
-
-    image: {
-      path: "/images/app_assets/step3.png",
-    },
+    alt: "Editor parte 3: Personalize o verso",
+    image: { path: "/images/app_assets/step3.png" },
     orientation: "vertical" as const,
   },
 ]);
