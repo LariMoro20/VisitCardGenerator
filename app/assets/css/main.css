@@ -2,10 +2,10 @@
 @import "@nuxt/ui";
 @custom-variant dark (&:where(.dark, .dark *));
 @theme {
-  --color-background-light: #f5f5f5;
-  --color-background-dark: #000;
-  --color-text-light: #000; /* cor do texto para o modo claro */
-  --color-text-dark: #e8e4dc; /* cor do texto para o modo escuro */
+  --color-background-light: #fffef9;
+  --color-background-dark: #0f172b;
+  --color-text-light: #000;
+  --color-text-dark: #e8e4dc;
   --color-primary: #0b2a4a;
   --color-secondary: #c9a96e;
   --color-accent: #7b3fe4;
@@ -13,10 +13,20 @@
   --color-positive: #2e9e41;
   --color-info: #5c6b7a;
   --color-warning: #f29b38;
-  --color-placeholder: #6b6662; /* Cor para o texto do placeholder */
+  --color-placeholder: #6b6662;
+}
+@layer base {
+  :root {
+    --ui-bg: var(--color-background-light);
+    --ui-text: var(--color-text-light);
+  }
+
+  .dark {
+    --ui-bg: var(--color-background-dark);
+    --ui-text: var(--color-text-dark);
+  }
 }
 
-/* Background e texto vão ser automaticamente controlados pelo modo */
 html {
   background-color: var(--color-background-light);
   color: var(--color-text);
