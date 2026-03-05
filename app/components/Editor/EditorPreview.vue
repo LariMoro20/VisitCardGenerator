@@ -5,19 +5,21 @@
     <div
       class="flex gap-1 rounded-lg p-1 border border-[var(--color-secondary)]"
     >
-      <button
+      <UButton
         v-for="tab in ['frente', 'verso'] as const"
         :key="tab"
-        class="text-[.78rem] px-4.5 py-1.5 rounded-md cursor-pointer border-0 transition-colors tracking-[.04em] capitalize"
+        size="xs"
+        variant="ghost"
+        class="capitalize tracking-[.04em] transition-colors"
         :class="
           aba === tab
-            ? 'bg-[var(--color-secondary)] text-[var(--color-background)] font-semibold'
-            : 'bg-transparent text-[var(--color-text)]'
+            ? 'bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)] font-semibold'
+            : 'text-[var(--color-text)]'
         "
         @click="aba = tab"
       >
         {{ tab }}
-      </button>
+      </UButton>
     </div>
 
     <div class="flex items-center justify-center" :style="wrapperStyle">
@@ -42,6 +44,8 @@
 </template>
 
 <script setup lang="ts">
+const colorMode = useColorMode();
+const isDark = computed(() => colorMode.value === "dark");
 defineProps<{
   cardFrenteProps: Record<string, unknown>;
   cardVersoProps: Record<string, unknown>;
