@@ -42,31 +42,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from "vue";
-
 defineProps<{
   cardFrenteProps: Record<string, unknown>;
   cardVersoProps: Record<string, unknown>;
 }>();
 
+const CARD_W = 520;
+const CARD_H = 296;
+const containerW = ref(0);
 const aba = ref<"frente" | "verso">("frente");
 const cardFrenteRef = ref<{ $el: HTMLElement } | null>(null);
 const cardVersoRef = ref<{ $el: HTMLElement } | null>(null);
 defineExpose({ cardFrenteRef, cardVersoRef });
-
-const CARD_W = 520;
-const CARD_H = 296;
-const containerW = ref(0);
-
-const updateWidth = () => {
-  containerW.value = window.innerWidth;
-};
-
-onMounted(() => {
-  updateWidth();
-  window.addEventListener("resize", updateWidth);
-});
-onUnmounted(() => window.removeEventListener("resize", updateWidth));
 
 const scale = computed(() => {
   const available =
@@ -84,4 +71,14 @@ const wrapperStyle = computed(() => ({
   width: `${CARD_W * scale.value}px`,
   height: `${CARD_H * scale.value}px`,
 }));
+
+const updateWidth = () => {
+  containerW.value = window.innerWidth;
+};
+
+onMounted(() => {
+  updateWidth();
+  window.addEventListener("resize", updateWidth);
+});
+onUnmounted(() => window.removeEventListener("resize", updateWidth));
 </script>

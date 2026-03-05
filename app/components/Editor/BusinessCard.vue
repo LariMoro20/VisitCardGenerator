@@ -1,7 +1,16 @@
 <template>
   <div :style="cardStyle">
     <img v-if="bgImage" :src="bgImage" :style="layerFull" />
-    <div v-if="bgImage" :style="overlayStyle" />
+    <div
+      v-if="bgImage"
+      :style="{
+        position: 'absolute',
+        inset: '0',
+        background: corFundo,
+        opacity: String(bgOpacity),
+      }"
+    />
+
     <svg
       v-if="pattern !== 'solid'"
       viewBox="0 0 520 296"
@@ -9,40 +18,140 @@
       :style="layerFull"
       v-html="patternSvg"
     />
-    <div :style="accentBarStyle" />
-    <div v-if="!bgImage" :style="circleStyle" />
-    <div :style="topRowStyle">
-      <div :style="logoWrapStyle">
-        <img v-if="logo" :src="logo" :style="logoImgStyle" />
-        <div v-else :style="logoPhStyle">{{ initial }}</div>
+
+    <div
+      :style="{
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        right: '0',
+        height: '4px',
+        background: corDestaque,
+        zIndex: '10',
+      }"
+    />
+
+    <div
+      v-if="!bgImage"
+      :style="{
+        position: 'absolute',
+        width: '280px',
+        height: '280px',
+        borderRadius: '50%',
+        right: '-80px',
+        top: '-80px',
+        opacity: '0.12',
+        zIndex: '1',
+        background: corDestaque,
+      }"
+    />
+
+    <div
+      :style="{
+        position: 'relative',
+        zIndex: '10',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        gap: '16px',
+      }"
+    >
+      <div style="flex-shrink: 0">
+        <img
+          v-if="logo"
+          :src="logo"
+          :style="{
+            width: '50px',
+            height: '50px',
+            objectFit: 'contain',
+            borderRadius: '8px',
+            display: 'block',
+          }"
+        />
+        <div
+          v-else
+          :style="{
+            width: '50px',
+            height: '50px',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.1rem',
+            fontWeight: '700',
+            background: corDestaque + '22',
+            color: corDestaque,
+          }"
+        >
+          {{ initial }}
+        </div>
       </div>
-      <div :style="infoStyle">
-        <div :style="nameStyle">{{ empresa || "Nome da Empresa" }}</div>
-        <div v-if="descricao" :style="descStyle">{{ descricao }}</div>
+      <div style="text-align: right; flex: 1; min-width: 0">
+        <div
+          :style="{
+            fontFamily: `'Playfair Display', serif`,
+            fontSize: '1.2rem',
+            fontWeight: '700',
+            lineHeight: '1.2',
+            color: corTexto,
+          }"
+        >
+          {{ empresa || "Nome da Empresa" }}
+        </div>
+        <div
+          v-if="descricao"
+          :style="{
+            fontSize: '0.67rem',
+            fontWeight: '300',
+            opacity: '0.75',
+            marginTop: '6px',
+            lineHeight: '1.55',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            color: corTexto,
+          }"
+        >
+          {{ descricao }}
+        </div>
       </div>
     </div>
 
-    <div :style="dividerStyle" />
+    <div
+      :style="{
+        position: 'relative',
+        zIndex: '10',
+        height: '1px',
+        opacity: '0.2',
+        background: corTexto,
+      }"
+    />
 
-    <div :style="contactsStyle">
-      <div v-if="telefone" :style="contactRowStyle">
-        <span :style="iconWrapStyle" v-html="phoneIcon" />
-        <span :style="contactTextStyle">{{ telefone }}</span>
+    <div
+      :style="{
+        position: 'relative',
+        zIndex: '10',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '5px',
+      }"
+    >
+      <div v-if="telefone" :style="contactRow">
+        <span :style="iconWrap" v-html="phoneIcon" />
+        <span style="line-height: 1">{{ telefone }}</span>
       </div>
-      <div v-if="email" :style="contactRowStyle">
-        <span :style="iconWrapStyle" v-html="emailIcon" />
-        <span :style="contactTextStyle">{{ email }}</span>
+      <div v-if="email" :style="contactRow">
+        <span :style="iconWrap" v-html="emailIcon" />
+        <span style="line-height: 1">{{ email }}</span>
       </div>
-      <div v-if="site" :style="contactRowStyle">
-        <span :style="iconWrapStyle" v-html="globeIcon" />
-        <span :style="contactTextStyle">{{ site }}</span>
+      <div v-if="site" :style="contactRow">
+        <span :style="iconWrap" v-html="globeIcon" />
+        <span style="line-height: 1">{{ site }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
 import { PATTERNS } from "./patterns";
 
 const props = defineProps<{
@@ -60,12 +169,12 @@ const props = defineProps<{
   padrao: string;
 }>();
 
-const initial = computed(() =>
-  props.empresa ? props.empresa[0].toUpperCase() : "?",
-);
+const { corFundo, corTexto, corDestaque, bgOpacity, padrao } = toRefs(props);
+
+const initial = computed(() => props.empresa?.[0]?.toUpperCase() ?? "?");
 const patternSvg = computed(
   () =>
-    PATTERNS.find((p) => p.id === props.padrao)?.render(props.corDestaque) ??
+    PATTERNS.find((p) => p.id === padrao.value)?.render(corDestaque.value) ??
     "",
 );
 
@@ -74,7 +183,7 @@ const cardStyle = computed(() => ({
   height: "296px",
   padding: "28px 34px 26px",
   fontFamily: "'DM Sans', sans-serif",
-  background: props.corFundo,
+  background: corFundo.value,
   position: "relative",
   overflow: "hidden",
   display: "flex",
@@ -91,119 +200,16 @@ const layerFull = {
   objectFit: "cover",
 };
 
-const overlayStyle = computed(() => ({
-  position: "absolute",
-  inset: "0",
-  background: props.corFundo,
-  opacity: String(props.bgOpacity),
-}));
-
-const accentBarStyle = computed(() => ({
-  position: "absolute",
-  top: "0",
-  left: "0",
-  right: "0",
-  height: "4px",
-  background: props.corDestaque,
-  zIndex: "10",
-}));
-
-const circleStyle = computed(() => ({
-  position: "absolute",
-  width: "280px",
-  height: "280px",
-  borderRadius: "50%",
-  right: "-80px",
-  top: "-80px",
-  opacity: "0.12",
-  zIndex: "1",
-  background: props.corDestaque,
-}));
-
-const topRowStyle = {
-  position: "relative",
-  zIndex: "10",
-  display: "flex",
-  alignItems: "flex-start",
-  justifyContent: "space-between",
-  gap: "16px",
-};
-
-const logoWrapStyle = { flexShrink: "0" };
-
-const logoImgStyle = {
-  width: "50px",
-  height: "50px",
-  objectFit: "contain",
-  borderRadius: "8px",
-  display: "block",
-};
-
-const logoPhStyle = computed(() => ({
-  width: "50px",
-  height: "50px",
-  borderRadius: "8px",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: "1.1rem",
-  fontWeight: "700",
-  background: props.corDestaque + "22",
-  color: props.corDestaque,
-}));
-
-const infoStyle = {
-  textAlign: "right",
-  flex: "1",
-  minWidth: "0",
-};
-
-const nameStyle = computed(() => ({
-  fontFamily: "'Playfair Display', serif",
-  fontSize: "1.2rem",
-  fontWeight: "700",
-  lineHeight: "1.2",
-  color: props.corTexto,
-}));
-
-const descStyle = computed(() => ({
-  fontSize: "0.67rem",
-  fontWeight: "300",
-  opacity: "0.75",
-  marginTop: "6px",
-  lineHeight: "1.55",
-  textAlign: "right",
-  whiteSpace: "pre-wrap",
-  wordBreak: "break-word",
-  color: props.corTexto,
-}));
-
-const dividerStyle = computed(() => ({
-  position: "relative",
-  zIndex: "10",
-  height: "1px",
-  opacity: "0.2",
-  background: props.corTexto,
-}));
-
-const contactsStyle = {
-  position: "relative",
-  zIndex: "10",
-  display: "flex",
-  flexDirection: "column",
-  gap: "5px",
-};
-
-const contactRowStyle = computed(() => ({
+const contactRow = computed(() => ({
   display: "flex",
   alignItems: "center",
   gap: "6px",
   fontSize: "0.7rem",
   opacity: "0.85",
-  color: props.corTexto,
+  color: corTexto.value,
 }));
 
-const iconWrapStyle = {
+const iconWrap = {
   width: "15px",
   height: "15px",
   display: "flex",
@@ -213,18 +219,19 @@ const iconWrapStyle = {
   opacity: "0.75",
 };
 
-const contactTextStyle = { lineHeight: "1" };
+const icon = (path: string) =>
+  computed(
+    () =>
+      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${corDestaque.value}" stroke-width="2" stroke-linecap="round" style="display:block">${path}</svg>`,
+  );
 
-const phoneIcon = computed(
-  () =>
-    `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${props.corDestaque}" stroke-width="2" stroke-linecap="round" style="display:block"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`,
+const phoneIcon = icon(
+  `<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>`,
 );
-const emailIcon = computed(
-  () =>
-    `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${props.corDestaque}" stroke-width="2" stroke-linecap="round" style="display:block"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`,
+const emailIcon = icon(
+  `<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
 );
-const globeIcon = computed(
-  () =>
-    `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${props.corDestaque}" stroke-width="2" stroke-linecap="round" style="display:block"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+const globeIcon = icon(
+  `<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
 );
 </script>
