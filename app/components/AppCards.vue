@@ -42,7 +42,7 @@ const cards = ref([
       "Adicione logotipo, nome da empresa, descrição e informações de contato como telefone, e-mail e site.",
     class: "hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
     alt: "Editor parte 1: Informações principais e contatos",
-    image: { path: "/images/app_assets/step1.png" },
+    image: { path: "/images/app_assets/step_1.png" },
     orientation: "vertical" as const,
   },
   {
@@ -51,7 +51,7 @@ const cards = ref([
       "Personalize as cores do cartão, escolha um padrão geométrico e adicione imagem de fundo com controle de opacidade.",
     class: "hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
     alt: "Editor parte 2: Estilo do cartão",
-    image: { path: "/images/app_assets/step2.png" },
+    image: { path: "/images/app_assets/step_2.png" },
     orientation: "vertical" as const,
   },
   {
@@ -60,7 +60,7 @@ const cards = ref([
       "Configure o verso com logo, nome e padrão próprio. Baixe o PDF com frente e verso prontos para impressão.",
     class: "hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer",
     alt: "Editor parte 3: Personalize o verso",
-    image: { path: "/images/app_assets/step3.png" },
+    image: { path: "/images/app_assets/step_3.png" },
     orientation: "vertical" as const,
   },
 ]);
