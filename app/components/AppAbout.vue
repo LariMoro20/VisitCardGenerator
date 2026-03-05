@@ -77,7 +77,6 @@ const { data } = await useFetch<GithubUser>(
   },
 );
 
-const avatar = computed(() => data.value?.avatar_url || "");
 const bio = computed(() => data.value?.bio || "");
 const name = computed(() => data.value?.name || "");
 const githubUrl = computed(() => data.value?.html_url);

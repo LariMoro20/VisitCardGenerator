@@ -1,21 +1,25 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
+
   colorMode: {
-    preference: "dark", // (system | light | dark)
+    preference: "dark",
     fallback: "light",
   },
+
   ssr: true,
+
   runtimeConfig: {
     public: {
       githubToken: process.env.NUXT_PUBLIC_GITHUB_TOKEN,
     },
   },
+
   ui: {
     colorMode: true,
   },
+
   modules: [
     "@nuxt/eslint",
     "@nuxt/hints",
@@ -24,6 +28,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/seo",
   ],
+
   image: {
     domains: ["avatars.githubusercontent.com"],
     provider: "ipx",
@@ -31,13 +36,23 @@ export default defineNuxtConfig({
       maxAge: 60 * 60 * 24 * 7,
     },
   },
+
   app: {
     head: {
-      titleTemplate: "%s | VisitCardGeneator",
-      htmlAttrs: {
-        lang: "pt-BR",
-      },
+      titleTemplate: "%s | VisitCardGenerator",
+      htmlAttrs: { lang: "pt-BR" },
+      meta: [
+        { name: "theme-color", content: "#111111" },
+        { name: "robots", content: "index, follow" },
+        { name: "author", content: "Larissa Santos" },
+      ],
       link: [
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "",
+        },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap",
@@ -64,22 +79,29 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   site: {
-    url: "https://visitcard.vercel.app",
-    name: "VisitCard",
-    description: "Crie seu cartão de visitas de forma personalizada!",
+    url: "https://visitcard-larisantos.vercel.app/",
+    name: "VisitCardGenerator",
+    description:
+      "Gere cartões de visita profissionais com frente e verso em PDF. Personalize cores, logo, padrões e baixe na hora, sem cadastro.",
     defaultLocale: "pt-BR",
-    keywords: "cartao de visita, visitcard, pdf, generator, marketing",
+    keywords:
+      "cartão de visita, gerador de cartão de visita, cartão de visita PDF, criar cartão de visita online, VisitCardGenerator",
   },
+
   ogImage: {
     enabled: true,
   },
+
   nitro: {
     preset: "vercel",
     prerender: {
       crawlLinks: true,
+      routes: ["/", "/editor"],
     },
     routeRules: {
+      "/editor": { prerender: false, ssr: true },
       "/_ipx/**": { headers: { "cache-control": "max-age=604800, public" } },
     },
   },
