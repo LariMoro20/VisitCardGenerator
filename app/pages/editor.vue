@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen overflow-hidden">
     <header
-      class="px-10 py-5 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
+      class="px-6 md:px-10 py-4 md:py-5 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
     >
       <NuxtLink
         to="/"
@@ -16,18 +16,23 @@
           class="h-10.5"
         />
       </NuxtLink>
-      <h1 class="font-serif text-2xl font-normal">
+      <h1 class="font-serif text-lg md:text-2xl font-normal hidden sm:block">
         Gerador de Cartão de Visita
       </h1>
       <span
-        class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase"
-        >PDF frente e verso</span
+        class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase hidden md:block"
       >
-      <UColorModeButton class="ml-4" />
+        PDF frente e verso
+      </span>
+      <UColorModeButton class="ml-auto md:ml-4" />
     </header>
 
-    <div class="grid grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden">
-      <div class="min-h-0 overflow-y-auto overflow-x-hidden">
+    <div
+      class="flex flex-col md:grid md:grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden"
+    >
+      <div
+        class="max-h-[45vh] md:max-h-none overflow-y-auto overflow-x-hidden border-b md:border-b-0 border-[var(--color-secondary)]"
+      >
         <EditorForm
           v-model:form="form"
           :logo-preview="logoPreview"
@@ -39,7 +44,7 @@
           @gerar="gerarPDF"
         />
       </div>
-      <div class="min-h-0">
+      <div class="flex-1 min-h-0 overflow-hidden">
         <EditorPreview
           ref="previewRef"
           class="h-full w-full"
@@ -47,19 +52,22 @@
           :card-verso-props="cardVersoProps"
         />
       </div>
-      <footer
-        class="border-t border-[var(--color-secondary)] px-5 py-3 flex items-center justify-center"
-      >
-        <p class="text-[0.75rem] text-[var(--color-text)] opacity-50">
-          Copyright © {{ new Date().getFullYear() }} Larissa Santos. Todos os
-          direitos reservados.
-        </p>
-      </footer>
     </div>
+
+    <footer
+      class="shrink-0 border-t border-[var(--color-secondary)] px-5 py-3 flex items-center justify-center"
+    >
+      <p class="text-[0.75rem] text-[var(--color-text)] opacity-50">
+        Copyright © {{ new Date().getFullYear() }} Larissa Santos. Todos os
+        direitos reservados.
+      </p>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, reactive, computed } from "vue";
+
 defineOgImageComponent("NuxtSeo", {
   title: "Criando seu cartão de visitas",
   description: "Crie seu cartão de visita de forma prática e fácil",
