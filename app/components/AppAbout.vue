@@ -3,38 +3,51 @@
     :title="`Sobre ${name}`"
     :description="bio"
     orientation="horizontal"
-    :features="features"
     :links="links"
     :ui="{
       title: 'text-primary dark:text-secondary',
-      description: 'text-primary/80 dark:text-white/80',
+      description: 'text-[var(--color-text)]',
     }"
   >
-    <NuxtImg
-      v-if="avatar"
-      :src="avatar"
-      width="152"
-      height="247"
-      alt="Illustration"
-      class="w-full max-w-sm md:max-w-sm lg:max-w-md rounded-lg"
-      loading="lazy"
-    />
+    <div
+      v-for="feature in features"
+      :key="feature.title"
+      class="flex items-center gap-4"
+    >
+      <Icon
+        :name="feature.icon"
+        :style="{ color: 'var(--color-secondary)' }"
+        size="24"
+      />
+      <div>
+        <h3 class="font-semibold text-[var(--color-text)]">
+          {{ feature.title }}
+        </h3>
+        <p class="text-[var(--color-text)]">{{ feature.description }}</p>
+      </div>
+    </div>
   </UPageSection>
 </template>
 
 <script setup lang="ts">
 const features = ref([
   {
-    title: "Experiência",
+    title: "Especialista em Vue.js & Ecossistema",
     description:
-      "Mais de 8 anos de experiência no desenvolvimento de soluções com tecnologias web",
-    icon: "mdi:work-outline",
+      "Vue.js como stack principal com Quasar, Nuxt, Vuetify, NuxtUI e DaisyUI. Estilização com Tailwind CSS e integração de dados via Axios e GraphQL.",
+    icon: "mdi:vuejs",
+  },
+  {
+    title: "8 anos de experiência",
+    description:
+      "Desenvolvedora fullstack com PHP e Vue.js, com sólida experiência em projetos web do zero à produção.",
+    icon: "mdi:briefcase-outline",
   },
   {
     title: "Formação",
     description:
-      "Analista e Desenvolvedora de Sistemas, Graduada em Desenvolvimento de Sistemas pelo IFRS - Campus Osório",
-    icon: "mdi:university-outline",
+      "Analista e Desenvolvedora de Sistemas pelo IFRS — Campus Osório.",
+    icon: "mdi:school-outline",
   },
 ]);
 
@@ -49,7 +62,7 @@ interface GithubUser {
 
 const config = useRuntimeConfig();
 
-const { data, status, error, refresh, clear } = await useFetch<GithubUser>(
+const { data } = await useFetch<GithubUser>(
   "https://api.github.com/users/LariMoro20",
   {
     headers: config.public.githubToken
