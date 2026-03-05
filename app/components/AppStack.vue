@@ -1,15 +1,16 @@
 <template>
   <UContainer class="pb-20">
-    <UPageCTA
-      title="Stack de tecnologia"
-      description="Algumas tecnologias e ferramentas usadas"
-      variant="naked"
-      :ui="{
-        container: 'pb-10!',
-        title: 'text-primary dark:text-secondary',
-        description: 'text-primary/80 dark:text-white/80',
-      }"
-    />
+    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+      <UPageCTA
+        title="Stack de tecnologia"
+        description="Algumas tecnologias e ferramentas usadas"
+        variant="naked"
+        :ui="{
+          container: 'pb-10!',
+          title: 'text-primary dark:text-secondary',
+          description: 'text-primary/80 dark:text-white/80',
+        }"
+    /></AnimationsReveal>
     <UPageLogos
       marquee
       :items="[
