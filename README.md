@@ -19,13 +19,13 @@ Visit Card Generator é uma aplicação web para criação de cartões de visita
 
 ## Stack
 
-| | |
-|---|---|
-| Framework | [Nuxt 3](https://nuxt.com) |
-| UI | [NuxtUI](https://ui.nuxt.com) + Tailwind CSS |
-| PDF | [jsPDF](https://github.com/parallax/jsPDF) |
-| Captura | [html-to-image](https://github.com/bubkoo/html-to-image) |
-| Fontes | Playfair Display + DM Sans (Google Fonts) |
+|           |                                                          |
+| --------- | -------------------------------------------------------- |
+| Framework | [Nuxt 3](https://nuxt.com)                               |
+| UI        | [NuxtUI](https://ui.nuxt.com) + Tailwind CSS             |
+| PDF       | [jsPDF](https://github.com/parallax/jsPDF)               |
+| Captura   | [html-to-image](https://github.com/bubkoo/html-to-image) |
+| Fontes    | Playfair Display + DM Sans (Google Fonts)                |
 
 <br />
 
@@ -80,4 +80,12 @@ O `html-to-image` captura o elemento diretamente do DOM. Classes Tailwind depend
 
 ## Licença
 
-MIT
+MIT com obrigatoriedade de atribuição para uso comercial.
+
+Você pode fazer fork, modificar e distribuir livremente. Para uso **comercial ou profissional** — SaaS, projetos de clientes, serviços pagos — é obrigatório incluir crédito visível na interface da aplicação:
+
+```
+Baseado em Visit Card Generator — github.com/[seu-usuario]/cardmint
+```
+
+Uso pessoal e educacional é livre, sem restrições. Veja o arquivo [`LICENSE`](./LICENSE) para os termos completos.
