@@ -108,12 +108,9 @@
         </EditorFileUploadBox>
       </EditorFormField>
     </div>
+    <EditorSectionLabel>Opacidade overlay</EditorSectionLabel>
 
     <div class="flex items-center gap-2.5">
-      <label
-        class="text-sm text-[var(--color-secondary)] font-medium whitespace-nowrap"
-        >Opacidade overlay</label
-      >
       <input
         v-model.number="form.bgOpacity"
         type="range"

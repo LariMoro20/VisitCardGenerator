@@ -1,3 +1,27 @@
+<template>
+  <UPageSection
+    :title="`Sobre ${name}`"
+    :description="bio"
+    orientation="horizontal"
+    :features="features"
+    :links="links"
+    :ui="{
+      title: 'text-primary dark:text-secondary',
+      description: 'text-primary/80 dark:text-white/80',
+    }"
+  >
+    <NuxtImg
+      v-if="avatar"
+      :src="avatar"
+      width="152"
+      height="247"
+      alt="Illustration"
+      class="w-full max-w-sm md:max-w-sm lg:max-w-md rounded-lg"
+      loading="lazy"
+    />
+  </UPageSection>
+</template>
+
 <script setup lang="ts">
 const features = ref([
   {
@@ -68,27 +92,3 @@ const links = ref([
   },
 ]);
 </script>
-
-<template>
-  <UPageSection
-    :title="`Sobre ${name}`"
-    :description="bio"
-    orientation="horizontal"
-    :features="features"
-    :links="links"
-    :ui="{
-      title: 'text-primary dark:text-secondary',
-      description: 'text-primary/80 dark:text-white/80',
-    }"
-  >
-    <NuxtImg
-      v-if="avatar"
-      :src="avatar"
-      width="352"
-      height="447"
-      alt="Illustration"
-      class="w-full max-w-sm md:max-w-sm lg:max-w-md rounded-lg"
-      loading="lazy"
-    />
-  </UPageSection>
-</template>
