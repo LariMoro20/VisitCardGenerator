@@ -103,36 +103,12 @@
     <USeparator />
 
     <EditorSectionLabel>Padrão geométrico</EditorSectionLabel>
-    <div class="grid grid-cols-4 gap-2">
-      <div
-        v-for="pattern in PATTERNS"
-        :key="pattern.id"
-        class="rounded-md border-2 cursor-pointer overflow-hidden transition-colors"
-        :class="
-          form.padrao === pattern.id
-            ? 'border-[var(--color-secondary)]'
-            : 'border-[var(--color-primary)]'
-        "
-        style="aspect-ratio: 1.75"
-        :style="{ background: form.corVerso }"
-        :title="pattern.label"
-        @click="form.padrao = pattern.id"
-      >
-        <svg
-          viewBox="0 0 88 50"
-          preserveAspectRatio="xMidYMid slice"
-          class="w-full h-full block"
-          v-html="pattern.preview(form.corDestaque)"
-        />
-      </div>
-    </div>
-
-    <div class="flex items-center gap-2.5">
-      <label class="text-[.82rem] text-[var(--color-text)] font-medium flex-1"
-        >Usar padrão também na frente</label
-      >
-      <UToggle v-model="form.padraoNaFrente" color="yellow" />
-    </div>
+    <EditorPatternPicker
+      v-model="form.padrao"
+      v-model:padraoNaFrente="form.padraoNaFrente"
+      :accent-color="form.corDestaque"
+      :bg-color="form.corVerso"
+    />
 
     <UButton
       block
@@ -148,8 +124,6 @@
 </template>
 
 <script setup lang="ts">
-import { PATTERNS } from "./patterns";
-
 const props = defineProps<{
   logoPreview: string | null;
   bgImages: Record<string, string | null>;
