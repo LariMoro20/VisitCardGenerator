@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="flex flex-col h-screen overflow-hidden bg-[#0f0f0f] text-[#e8e4dc]"
-  >
+  <div class="flex flex-col h-screen overflow-hidden">
     <header
-      class="px-10 py-5 border-b border-[#2a2a2a] flex items-center justify-between gap-4"
+      class="px-10 py-5 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
     >
       <NuxtLink
         to="/"
@@ -21,9 +19,12 @@
       <h1 class="font-serif text-2xl font-normal">
         Gerador de Cartão de Visita
       </h1>
-      <span class="text-[0.78rem] text-[#6b6662] tracking-[.12em] uppercase"
+      <span
+        class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase"
         >PDF frente e verso</span
       >
+      <!-- Botão de Toggle do Modo -->
+      <UColorModeButton class="ml-4" />
     </header>
 
     <div class="grid grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden">
@@ -54,8 +55,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from "vue";
 
-definePageMeta({ layout: false });
-
+// Definindo o estado do form e demais variáveis (como antes)
 const form = reactive({
   empresa: "",
   descricao: "",

@@ -1,6 +1,6 @@
 <template>
   <UHeader
-    class="fixed top-0 inset-x-0 z-50 transition-all duration-300 main-header"
+    class="fixed top-0 inset-x-0 z-[200] transition-all duration-300 main-header"
   >
     <template #title>
       <NuxtLink

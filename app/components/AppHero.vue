@@ -1,12 +1,7 @@
 <template>
   <UPageHero
-<<<<<<< HEAD
-    title="Desenvolvimento sob medida"
-    description="Uma década de experiência em desenvolvimento de soluções com tecnologia."
-=======
     title="Visit Card Generator"
     description="Crie seu cartão de visita de forma prática, moderna, rápida, 100% grátis e direto do seu navegador! Divulgue sua marca com qualidade"
->>>>>>> 3865fe2 (Send project to github)
     orientation="horizontal"
     :ui="{
       container: 'lg:pb-16',
