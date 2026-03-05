@@ -1,30 +1,30 @@
 <template>
   <UContainer id="editor">
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
-      <UPageCTA
-        title="Conheça o editor"
-        description="Nosso editor possui todas as formas de edição que você precisa: adicione imagens, contatos, personalize com sua logo, padrões e muito mais!"
-        variant="naked"
-        :ui="{
-          container: 'lg:pb-16',
-          title: 'text-primary dark:text-secondary',
-          description: 'text-primary/80 dark:text-white/80',
-        }"
-      >
-        <template #links>
-          <UButton
-            to="/editor"
-            size="xl"
-            variant="outline"
-            class="font-semibold border-2 border-[var(--color-primary)] dark:border-[var(--color-secondary)] text-[var(--color-primary)] dark:text-[var(--color-secondary)] px-8 hover:opacity-80"
-            :ui="{ base: 'hover:bg-transparent' }"
-          >
-            Acessar Editor →
-          </UButton>
-        </template>
-      </UPageCTA>
+      <div class="py-8 lg:py-12 text-center flex flex-col items-center gap-4">
+        <h2
+          class="text-3xl lg:text-4xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
+        >
+          Conheça o editor
+        </h2>
+        <p
+          class="text-[var(--color-primary)]/80 dark:text-white/80 max-w-xl text-base"
+        >
+          Nosso editor possui todas as formas de edição que você precisa:
+          adicione imagens, contatos, personalize com sua logo, padrões e muito
+          mais!
+        </p>
+        <UButton
+          to="/editor"
+          size="xl"
+          variant="outline"
+          class="font-semibold border-2 border-[var(--color-primary)] dark:border-[var(--color-secondary)] text-[var(--color-primary)] dark:text-[var(--color-secondary)] px-8 hover:opacity-80 mt-2"
+          :ui="{ base: 'hover:bg-transparent' }"
+        >
+          Acessar Editor →
+        </UButton>
+      </div>
     </AnimationsReveal>
-
     <UPageGrid>
       <AnimationsReveal
         v-for="(card, i) in cards"
