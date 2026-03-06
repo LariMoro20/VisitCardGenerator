@@ -29,8 +29,8 @@
           </h3>
           <p class="text-[var(--color-text)]">{{ feature.description }}</p>
         </div>
-      </div></AnimationsReveal
-    >
+      </div>
+    </AnimationsReveal>
   </UPageSection>
 
   <UPageSection class="pb-20">
@@ -48,7 +48,6 @@
         </p>
       </div>
     </AnimationsReveal>
-
     <UPageLogos
       marquee
       :items="[
@@ -71,9 +70,29 @@
 </template>
 
 <script setup lang="ts">
+interface GithubUser {
+  bio: string | null;
+  avatar_url: string;
+  login: string;
+  name: string;
+  html_url: string;
+  [key: string]: any;
+}
+
+const config = useRuntimeConfig();
+const { data } = await useFetch<GithubUser>(
+  "https://api.github.com/users/LariMoro20",
+  {
+    headers: config.public.githubToken
+      ? { Authorization: `Bearer ${config.public.githubToken}` }
+      : {},
+  },
+);
+
 const bio = computed(() => data.value?.bio || "");
 const name = computed(() => data.value?.name || "");
 const githubUrl = computed(() => data.value?.html_url);
+
 const anosExperiencia = new Date().getFullYear() - 2016;
 
 const features = [
@@ -81,6 +100,7 @@ const features = [
     title: `${anosExperiencia}+ anos de experiência`,
     description:
       "Fullstack desde 2016 com PHP e MySQL. A partir de 2021, foco exclusivo em Frontend com Vue.js, atuando como referência técnica em times de produto.",
+    icon: "mdi:briefcase-outline",
   },
   {
     title: "Especialista em Vue.js & Ecossistema",
@@ -109,7 +129,7 @@ const features = [
   {
     title: "Adaptabilidade de Stack",
     description:
-      "Além do ecossistema Vue.js, experiência profissional com diversas stacks como React, Node.js, Codeigniter, Laravel e Ionic. Me adapto bem a diferentes contextos e tecnologias.",
+      "Além do ecossistema Vue.js, experiência profissional com diversas stacks como React, Node.js, CodeIgniter, Laravel e Ionic. Me adapto bem a diferentes contextos e tecnologias.",
     icon: "mdi:lightning-bolt-outline",
   },
   {
@@ -119,6 +139,7 @@ const features = [
     icon: "mdi:certificate-outline",
   },
 ];
+
 const links = computed(() => [
   {
     label: "Linkedin",
@@ -145,26 +166,4 @@ const links = computed(() => [
     trailingIcon: "uil:github",
   },
 ]);
-
-interface GithubUser {
-  bio: string | null;
-  avatar_url: string;
-  login: string;
-  name: string;
-  html_url: string;
-  [key: string]: any;
-}
-
-const config = useRuntimeConfig();
-
-const { data } = await useFetch<GithubUser>(
-  "https://api.github.com/users/LariMoro20",
-  {
-    headers: config.public.githubToken
-      ? {
-          Authorization: `Bearer ${config.public.githubToken}`,
-        }
-      : {},
-  },
-);
 </script>
