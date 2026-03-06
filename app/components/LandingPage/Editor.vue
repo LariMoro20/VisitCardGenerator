@@ -69,7 +69,7 @@
     </AnimationsReveal>
   </UContainer>
 
-  <LinghtboxGalery v-if="cards" v-model="selectedIndex" :images="images" />
+  <LandingPageLinghtbox v-if="cards" v-model="selectedIndex" :images="images" />
 </template>
 
 <script setup lang="ts">

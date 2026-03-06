@@ -1,11 +1,10 @@
 <template>
   <div>
-    <AppHeader />
-    <AppHero id="hero" />
-    <AppCards id="editor" />
-    <AppAbout id="author" />
-    <AuthorStack id="stack" />
-    <AppFooter />
+    <LandingPageHeader />
+    <LandingPageHero id="hero" />
+    <LandingPageEditor id="editor" />
+    <LandingPageAuthor id="author" />
+    <LandingPageFooter />
   </div>
 </template>
 
