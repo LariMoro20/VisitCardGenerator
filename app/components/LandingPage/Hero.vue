@@ -5,7 +5,7 @@
     description="Crie seu cartão de visita de forma prática, moderna, rápida, 100% grátis e direto do seu navegador! Divulgue sua marca com qualidade"
     orientation="horizontal"
     :ui="{
-      container: 'lg:pb-16',
+      container: 'lg:pb-20',
       title: 'text-primary dark:text-secondary',
       description: 'text-primary/80 dark:text-white/80',
     }"

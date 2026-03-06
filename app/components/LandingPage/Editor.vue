@@ -1,5 +1,5 @@
 <template>
-  <UContainer id="editor">
+  <UContainer id="editor" class="scroll-mt-20">
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
       <div class="py-8 lg:py-12 text-center flex flex-col items-center gap-4">
         <h2
