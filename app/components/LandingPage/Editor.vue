@@ -10,9 +10,11 @@
         <p
           class="text-[var(--color-primary)]/80 dark:text-white/80 max-w-xl text-base"
         >
-          Nosso editor possui todas as formas de edição que você precisa:
-          adicione imagens, contatos, personalize com sua logo, padrões e muito
-          mais!
+          Cada detalhe pensado para você. Escolha cores, adicione seu logotipo,
+          defina padrões geométricos e imagens de fundo. Tudo em
+          <b>tempo real</b>, com <b>preview instantâneo</b>. Quando estiver
+          pronto, baixe o PDF com frente e verso no tamanho exato para impressão
+          profissional.
         </p>
         <UButton
           to="/editor"
