@@ -7,9 +7,7 @@
         >
           Conheça o editor
         </h2>
-        <p
-          class="text-[var(--color-primary)]/80 dark:text-white/80 max-w-xl text-base"
-        >
+        <p class="text-[var(--color-primary)]/80 dark:text-white/80 text-base">
           Cada detalhe pensado para você. Escolha cores, adicione seu logotipo,
           defina padrões geométricos e imagens de fundo. Tudo em
           <b>tempo real</b>, com <b>preview instantâneo</b>. Quando estiver
