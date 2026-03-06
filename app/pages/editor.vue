@@ -35,12 +35,10 @@
       >
         <EditorForm
           v-model:form="form"
-          :logo-preview="logoPreview"
-          :bg-images="bgImages"
+          v-model:logo-preview="logoPreview"
+          v-model:bg-images="bgImages"
           :gerando="gerando"
           :form-valido="formValido"
-          @update:logo-preview="logoPreview = $event"
-          @update:bg-images="Object.assign(bgImages, $event)"
           @gerar="gerarPDF"
         />
       </div>
@@ -66,8 +64,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from "vue";
-
 defineOgImageComponent("NuxtSeo", {
   title: "Editor de Cartão de Visita",
   description: "Personalize e baixe seu cartão de visita em PDF agora mesmo.",
@@ -100,7 +96,7 @@ const form = reactive({
 });
 
 const logoPreview = ref<string | null>(null);
-const bgImages = reactive<Record<string, string | null>>({
+const bgImages = ref<Record<string, string | null>>({
   frente: null,
   verso: null,
 });
@@ -119,7 +115,7 @@ const cardFrenteProps = computed(() => ({
   corFundo: form.corFundo,
   corTexto: form.corTexto,
   corDestaque: form.corDestaque,
-  bgImage: bgImages.frente,
+  bgImage: bgImages.value.frente,
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   padrao: form.padraoNaFrente ? form.padrao : "solid",
@@ -131,7 +127,7 @@ const cardVersoProps = computed(() => ({
   corFundo: form.corVerso,
   corTexto: form.corTexto,
   corDestaque: form.corDestaque,
-  bgImage: bgImages.verso,
+  bgImage: bgImages.value.verso,
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   padrao: form.padrao,

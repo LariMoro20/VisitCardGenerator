@@ -27,7 +27,7 @@
         <div
           class="rounded-2xl overflow-hidden shadow-[0_28px_72px_rgba(0,0,0,0.65),0_0_0_1px_rgba(255,255,255,0.04)] dark:shadow-[0_28px_72px_rgba(255,255,255,0.12),0_0_0_1px_rgba(255,255,255,0.08)]"
         >
-          <EditorCardBusiness
+          <EditorCardBusinessFront
             v-show="aba === 'frente'"
             ref="cardFrenteRef"
             v-bind="cardFrenteProps"
