@@ -71,54 +71,55 @@
 </template>
 
 <script setup lang="ts">
-const features = ref([
-  {
-    title: "Especialista em Vue.js & Ecossistema",
-    description:
-      "Vue.js como stack principal com Quasar, Nuxt, Vuetify, NuxtUI e DaisyUI. Estilização com Tailwind CSS e integração de dados via Axios e GraphQL.",
-    icon: "mdi:vuejs",
-  },
-  {
-    title: "8 anos de experiência",
-    description:
-      "Desenvolvedora fullstack com PHP e Vue.js, com sólida experiência em projetos web do zero à produção.",
-    icon: "mdi:briefcase-outline",
-  },
-  {
-    title: "Formação",
-    description:
-      "Analista e Desenvolvedora de Sistemas pelo IFRS — Campus Osório.",
-    icon: "mdi:school-outline",
-  },
-]);
-
-interface GithubUser {
-  bio: string | null;
-  avatar_url: string;
-  login: string;
-  name: string;
-  html_url: string;
-  [key: string]: any;
-}
-
-const config = useRuntimeConfig();
-
-const { data } = await useFetch<GithubUser>(
-  "https://api.github.com/users/LariMoro20",
-  {
-    headers: config.public.githubToken
-      ? {
-          Authorization: `Bearer ${config.public.githubToken}`,
-        }
-      : {},
-  },
-);
-
 const bio = computed(() => data.value?.bio || "");
 const name = computed(() => data.value?.name || "");
 const githubUrl = computed(() => data.value?.html_url);
+const anosExperiencia = new Date().getFullYear() - 2016;
 
-const links = ref([
+const features = [
+  {
+    title: `${anosExperiencia}+ anos de experiência`,
+    description:
+      "Fullstack desde 2016 com PHP e MySQL. A partir de 2021, foco exclusivo em Frontend com Vue.js, atuando como referência técnica em times de produto.",
+  },
+  {
+    title: "Especialista em Vue.js & Ecossistema",
+    description:
+      "Vue.js e Quasar como stack principal. Pinia, Apollo Client, Axios, REST e GraphQL. Arquitetura de SPAs, design system, web components e testes com Cypress e Vitest.",
+    icon: "mdi:vuejs",
+  },
+  {
+    title: "Palestrante & Mentora",
+    description:
+      "Ministrante de Claude Code em Ação na Nuvini (2025) e palestrante de UX/UI e Frontend na DataHub Analytics (2023).",
+    icon: "mdi:presentation",
+  },
+  {
+    title: "Formação Técnica e Superior",
+    description:
+      "Técnica em Informática e Analista e Desenvolvedora de Sistemas pelo IFRS — Campus Osório.",
+    icon: "mdi:school-outline",
+  },
+  {
+    title: "Boas Práticas & Metodologias",
+    description:
+      "Desenvolvimento orientado a SOLID, componentização, code review e Scrum. Experiência com Gitflow e Azure DevOps em times multidisciplinares.",
+    icon: "mdi:code-braces-box",
+  },
+  {
+    title: "Adaptabilidade de Stack",
+    description:
+      "Além do ecossistema Vue.js, experiência profissional com diversas stacks como React, Node.js, Codeigniter, Laravel e Ionic. Me adapto bem a diferentes contextos e tecnologias.",
+    icon: "mdi:lightning-bolt-outline",
+  },
+  {
+    title: "Aprendizado Contínuo",
+    description:
+      "Certificações recentes em NuxtJS, Vuetify, DaisyUI, Oracle Cloud e IA. Sempre explorando novas ferramentas. Projetos e cursos disponíveis no GitHub.",
+    icon: "mdi:certificate-outline",
+  },
+];
+const links = computed(() => [
   {
     label: "Linkedin",
     to: "https://www.linkedin.com/in/lari-moro-ss/",
@@ -144,4 +145,26 @@ const links = ref([
     trailingIcon: "uil:github",
   },
 ]);
+
+interface GithubUser {
+  bio: string | null;
+  avatar_url: string;
+  login: string;
+  name: string;
+  html_url: string;
+  [key: string]: any;
+}
+
+const config = useRuntimeConfig();
+
+const { data } = await useFetch<GithubUser>(
+  "https://api.github.com/users/LariMoro20",
+  {
+    headers: config.public.githubToken
+      ? {
+          Authorization: `Bearer ${config.public.githubToken}`,
+        }
+      : {},
+  },
+);
 </script>
