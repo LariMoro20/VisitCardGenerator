@@ -2,7 +2,7 @@
   <aside
     class="border-r border-[var(--color-secondary)] px-[22px] py-6 overflow-y-auto flex flex-col gap-4"
   >
-    <EditorSectionLabel>Identidade</EditorSectionLabel>
+    <EditorFormLabel>Identidade</EditorFormLabel>
     <EditorFormField label="Logotipo">
       <UFileUpload
         :dropzone="false"
@@ -35,7 +35,7 @@
 
     <USeparator />
 
-    <EditorSectionLabel>Contato</EditorSectionLabel>
+    <EditorFormLabel>Contato</EditorFormLabel>
     <EditorFormField
       v-for="field in contactFields"
       :key="field.key"
@@ -51,9 +51,9 @@
 
     <USeparator />
 
-    <EditorSectionLabel>Cores</EditorSectionLabel>
+    <EditorFormLabel>Cores</EditorFormLabel>
     <div class="grid grid-cols-2 gap-2.5">
-      <EditorColorPicker
+      <EditorFormColorPicker
         v-for="(label, key) in colorFields"
         :key="key"
         v-model="form[key as ColorKey]"
@@ -63,7 +63,7 @@
 
     <USeparator />
 
-    <EditorSectionLabel>Imagem de fundo</EditorSectionLabel>
+    <EditorFormLabel>Imagem de fundo</EditorFormLabel>
     <div class="grid grid-cols-2 gap-2.5">
       <EditorFormField
         v-for="upload in bgUploads"
@@ -84,7 +84,7 @@
       </EditorFormField>
     </div>
 
-    <EditorSectionLabel>Opacidade overlay</EditorSectionLabel>
+    <EditorFormLabel>Opacidade overlay</EditorFormLabel>
     <div class="flex items-center gap-2.5">
       <div class="flex-1 min-w-0">
         <USlider
@@ -102,8 +102,8 @@
 
     <USeparator />
 
-    <EditorSectionLabel>Padrão geométrico</EditorSectionLabel>
-    <EditorPatternPicker
+    <EditorFormLabel>Padrão geométrico</EditorFormLabel>
+    <EditorFormPatternPicker
       v-model="form.padrao"
       v-model:padraoNaFrente="form.padraoNaFrente"
       :accent-color="form.corDestaque"

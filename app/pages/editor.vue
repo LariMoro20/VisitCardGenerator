@@ -45,7 +45,7 @@
         />
       </div>
       <div class="flex-1 min-h-0 overflow-hidden">
-        <EditorPreview
+        <EditorCardPreview
           ref="previewRef"
           class="h-full w-full"
           :card-frente-props="cardFrenteProps"

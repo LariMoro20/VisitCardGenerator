@@ -152,7 +152,7 @@
 </template>
 
 <script setup lang="ts">
-import { PATTERNS } from "../../utils/patterns";
+import { PATTERNS } from "../../../utils/patterns";
 
 const props = defineProps<{
   empresa: string;
