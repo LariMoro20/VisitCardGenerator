@@ -8,9 +8,7 @@
         :dropzone="false"
         accept="image/*"
         :ui="uploadUi"
-        @update:model-value="
-          (file) => toBase64(file, (v) => emit('update:logoPreview', v))
-        "
+        @update:model-value="(file) => toBase64(file, (v) => (logoPreview = v))"
       />
     </EditorFormField>
 
@@ -76,8 +74,9 @@
           :ui="uploadUi"
           @update:model-value="
             (file) =>
-              toBase64(file, (v) =>
-                emit('update:bgImages', { ...props.bgImages, [upload.key]: v }),
+              toBase64(
+                file,
+                (v) => (bgImages = { ...bgImages, [upload.key]: v }),
               )
           "
         />
@@ -95,9 +94,9 @@
           :ui="{ root: 'w-full' }"
         />
       </div>
-      <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right"
-        >{{ Math.round(form.bgOpacity * 100) }}%</span
-      >
+      <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right">
+        {{ Math.round(form.bgOpacity * 100) }}%
+      </span>
     </div>
 
     <USeparator />
@@ -128,18 +127,12 @@
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
-const props = defineProps<{
-  logoPreview: string | null;
-  bgImages: Record<string, string | null>;
+defineProps<{
   gerando: boolean;
   formValido: boolean;
 }>();
 
-const emit = defineEmits<{
-  "update:logoPreview": [v: string | null];
-  "update:bgImages": [v: Record<string, string | null>];
-  gerar: [];
-}>();
+const emit = defineEmits<{ gerar: [] }>();
 
 type ColorKey = "corFundo" | "corTexto" | "corDestaque" | "corVerso";
 type ContactKey = "telefone" | "email" | "site";
@@ -157,7 +150,12 @@ type Form = {
   padraoNaFrente: boolean;
   bgOpacity: number;
 };
+
 const form = defineModel<Form>("form", { required: true });
+const logoPreview = defineModel<string | null>("logoPreview");
+const bgImages = defineModel<Record<string, string | null>>("bgImages", {
+  required: true,
+});
 
 const inputUi = {
   root: "w-full",
