@@ -31,6 +31,42 @@
       </div></AnimationsReveal
     >
   </UPageSection>
+
+  <UPageSection class="pb-20">
+    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+      <div class="py-4 lg:py-0 text-center flex flex-col items-center gap-4">
+        <h2
+          class="text-3xl lg:text-4xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
+        >
+          Stack de tecnologia
+        </h2>
+        <p
+          class="text-[var(--color-primary)]/80 dark:text-white/80 max-w-xl text-base"
+        >
+          Algumas das tecnologias e ferramentas que trabalho
+        </p>
+      </div>
+    </AnimationsReveal>
+
+    <UPageLogos
+      marquee
+      :items="[
+        'logos:vue',
+        'devicon:nuxt',
+        'logos:pinia',
+        'devicon:quasar',
+        'devicon:vuetify',
+        'logos:tailwindcss-icon',
+        'logos:daisyui',
+        'logos:graphql',
+        'logos:axios',
+        'logos:php',
+        'skill-icons:javascript',
+        'skill-icons:typescript',
+        'skill-icons:npm-light',
+      ]"
+    />
+  </UPageSection>
 </template>
 
 <script setup lang="ts">
