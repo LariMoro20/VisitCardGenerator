@@ -1,9 +1,9 @@
 <template>
   <div>
     <LandingPageHeader />
-    <LandingPageHero id="hero" />
-    <LandingPageEditor id="editor" />
-    <LandingPageAuthor id="author" />
+    <LandingPageHero />
+    <LandingPageEditor />
+    <LandingPageAuthor />
     <LandingPageFooter />
   </div>
 </template>

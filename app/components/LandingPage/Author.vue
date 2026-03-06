@@ -1,5 +1,6 @@
 <template>
   <UPageSection
+    id="author"
     :title="`Sobre ${name}`"
     :description="bio"
     orientation="horizontal"

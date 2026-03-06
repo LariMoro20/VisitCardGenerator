@@ -1,5 +1,6 @@
 <template>
   <UPageHero
+    id="hero"
     title="VisitCard Generator"
     description="Crie seu cartão de visita de forma prática, moderna, rápida, 100% grátis e direto do seu navegador! Divulgue sua marca com qualidade"
     orientation="horizontal"
