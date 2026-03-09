@@ -22,27 +22,57 @@
     </EditorFormField>
 
     <EditorFormField label="Descrição / tagline">
-      <UTextarea
-        v-model="form.descricao"
-        placeholder="Descreva sua empresa em algumas palavras…"
-        :maxlength="200"
-        :rows="3"
-        :ui="inputUi"
-      />
+      <div class="flex flex-col gap-1">
+        <UTextarea
+          v-model="form.descricao"
+          placeholder="Descreva sua empresa em algumas palavras…"
+          :maxlength="200"
+          :rows="3"
+          :ui="inputUi"
+        />
+        <span
+          class="text-[.72rem] text-[var(--color-placeholder)] text-right px-1"
+        >
+          {{ form.descricao.length }}/200
+        </span>
+      </div>
     </EditorFormField>
 
     <USeparator />
 
     <EditorFormLabel>Contato</EditorFormLabel>
-    <EditorFormField
-      v-for="field in contactFields"
-      :key="field.key"
-      :label="field.label"
-    >
+    <EditorFormField label="Telefone">
       <UInput
-        v-model="form[field.key as ContactKey]"
-        :placeholder="field.placeholder"
-        :type="field.type"
+        v-model="form.telefone"
+        v-maska="'(##) #####-####'"
+        placeholder="(11) 90000-0000"
+        type="tel"
+        :ui="inputUi"
+      />
+    </EditorFormField>
+
+    <EditorFormField label="E-mail">
+      <div class="flex flex-col gap-1">
+        <UInput
+          v-model="form.email"
+          placeholder="contato@empresa.com.br"
+          type="email"
+          :ui="inputUi"
+        />
+        <span
+          v-if="form.email && !emailValido"
+          class="text-[.72rem] text-[var(--color-negative)] px-1"
+        >
+          E-mail inválido
+        </span>
+      </div>
+    </EditorFormField>
+
+    <EditorFormField label="Site">
+      <UInput
+        v-model="form.site"
+        placeholder="www.empresa.com.br"
+        type="url"
         :ui="inputUi"
       />
     </EditorFormField>
@@ -83,7 +113,7 @@
       </EditorFormField>
     </div>
 
-    <EditorFormLabel>Opacidade overlay</EditorFormLabel>
+    <EditorFormLabel>Transparência da imagem de fundo</EditorFormLabel>
     <div class="flex items-center gap-2.5">
       <div class="flex-1 min-w-0">
         <USlider
@@ -94,9 +124,9 @@
           :ui="{ root: 'w-full' }"
         />
       </div>
-      <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right">
-        {{ Math.round(form.bgOpacity * 100) }}%
-      </span>
+      <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right"
+        >{{ Math.round(form.bgOpacity * 100) }}%</span
+      >
     </div>
 
     <USeparator />
@@ -127,15 +157,10 @@
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
-defineProps<{
-  gerando: boolean;
-  formValido: boolean;
-}>();
-
+defineProps<{ gerando: boolean; formValido: boolean }>();
 const emit = defineEmits<{ gerar: [] }>();
 
 type ColorKey = "corFundo" | "corTexto" | "corDestaque" | "corVerso";
-type ContactKey = "telefone" | "email" | "site";
 type Form = {
   empresa: string;
   descricao: string;
@@ -157,32 +182,15 @@ const bgImages = defineModel<Record<string, string | null>>("bgImages", {
   required: true,
 });
 
+const emailValido = computed(() =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email),
+);
+
 const inputUi = {
   root: "w-full",
   base: "w-full border border-[var(--color-secondary)] text-[var(--color-text)] focus:border-[var(--color-primary)] transition-colors bg-transparent",
   placeholder: "text-[var(--color-placeholder)]",
 };
-
-const contactFields = [
-  {
-    key: "telefone",
-    label: "Telefone",
-    placeholder: "+55 (11) 9 0000-0000",
-    type: "tel",
-  },
-  {
-    key: "email",
-    label: "E-mail",
-    placeholder: "contato@empresa.com.br",
-    type: "email",
-  },
-  {
-    key: "site",
-    label: "Site",
-    placeholder: "www.empresa.com.br",
-    type: "url",
-  },
-] as const;
 
 const uploadUi = {
   base: "border-2 border-dashed border-[var(--color-secondary)] hover:bg-[var(--color-secondary)]/20 transition-colors w-full",
