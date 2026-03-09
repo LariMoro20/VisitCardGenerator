@@ -3,7 +3,7 @@
     :class="[
       'fixed top-0 inset-x-0 z-50 transition-all duration-300',
       isScrolled
-        ? 'backdrop-blur-xl border-b border-[var(--color-secondary)]'
+        ? 'backdrop-blur-xl bg-[var(--color-background-light)]/90 dark:bg-[var(--color-background-dark)]/90 border-b border-[var(--color-secondary)]'
         : 'bg-transparent border-b border-transparent',
     ]"
   >

@@ -1,71 +1,22 @@
 <template>
-  <UPageSection
-    id="author"
-    :title="`Sobre ${name}`"
-    :description="bio"
-    orientation="horizontal"
-    :links="links"
-    :ui="{
-      title: 'text-primary dark:text-secondary',
-      description: 'text-[var(--color-text)]',
-    }"
-  >
-    <AnimationsReveal
-      v-for="(feature, i) in features"
-      :key="feature.title"
-      type="fade-slide"
-      direction="up"
-      :delay="i * 0.5"
-    >
-      <div class="flex items-center gap-4">
-        <Icon
-          :name="feature.icon"
-          :style="{ color: 'var(--color-secondary)' }"
-          size="24"
-        />
-        <div>
-          <h3 class="font-semibold text-[var(--color-text)]">
-            {{ feature.title }}
-          </h3>
-          <p class="text-[var(--color-text)]">{{ feature.description }}</p>
+  <UPageSection id="author" :ui="{ title: 'text-primary dark:text-secondary' }">
+    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+      <div class="flex flex-col gap-4 max-w-xl">
+        <h2
+          class="text-2xl lg:text-3xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
+        >
+          Sobre {{ name }}
+        </h2>
+        <p class="text-[var(--color-text)]">{{ bio }}</p>
+        <p class="text-[var(--color-text)]/80 text-sm">
+          Desenvolvedora Fullstack com {{ anosExperiencia }}+ anos de
+          experiência, especialista em Vue.js e ecossistema frontend.
+        </p>
+        <div class="flex gap-3 flex-wrap mt-2">
+          <UButton v-for="link in links" :key="link.label" v-bind="link" />
         </div>
       </div>
     </AnimationsReveal>
-  </UPageSection>
-
-  <UPageSection class="pb-20">
-    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
-      <div class="py-4 lg:py-0 text-center flex flex-col items-center gap-4">
-        <h2
-          class="text-3xl lg:text-4xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
-        >
-          Stack de tecnologia
-        </h2>
-        <p
-          class="text-[var(--color-primary)]/80 dark:text-white/80 max-w-xl text-base"
-        >
-          Algumas das tecnologias e ferramentas que trabalho
-        </p>
-      </div>
-    </AnimationsReveal>
-    <UPageLogos
-      marquee
-      :items="[
-        'logos:vue',
-        'devicon:nuxt',
-        'logos:pinia',
-        'devicon:quasar',
-        'devicon:vuetify',
-        'logos:tailwindcss-icon',
-        'logos:daisyui',
-        'logos:graphql',
-        'logos:axios',
-        'logos:php',
-        'skill-icons:javascript',
-        'skill-icons:typescript',
-        'skill-icons:npm-light',
-      ]"
-    />
   </UPageSection>
 </template>
 
@@ -97,7 +48,7 @@ const anosExperiencia = new Date().getFullYear() - 2016;
 
 const features = [
   {
-    title: `${anosExperiencia}+ anos de experiência`,
+    title: `${anosExperiencia}+ anos de experiência em desenvolvimento web`,
     description:
       "Fullstack desde 2016 com PHP e MySQL. A partir de 2021, foco exclusivo em Frontend com Vue.js, atuando como referência técnica em times de produto.",
     icon: "mdi:briefcase-outline",
@@ -107,12 +58,6 @@ const features = [
     description:
       "Vue.js e Quasar como stack principal. Pinia, Apollo Client, Axios, REST e GraphQL. Arquitetura de SPAs, design system, web components e testes com Cypress e Vitest.",
     icon: "mdi:vuejs",
-  },
-  {
-    title: "Palestrante & Mentora",
-    description:
-      "Ministrante de Claude Code em Ação na Nuvini (2025) e palestrante de UX/UI e Frontend na DataHub Analytics (2023).",
-    icon: "mdi:presentation",
   },
   {
     title: "Formação Técnica e Superior",

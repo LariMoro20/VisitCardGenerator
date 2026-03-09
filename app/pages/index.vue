@@ -3,6 +3,10 @@
     <LandingPageHeader />
     <LandingPageHero />
     <LandingPageEditor />
+    <LandingPageCard />
+    <LandingPageProjectStack />
+    <LandingPageCTA />
+    <LandingPageFAQ />
     <LandingPageAuthor />
     <LandingPageFooter />
   </div>

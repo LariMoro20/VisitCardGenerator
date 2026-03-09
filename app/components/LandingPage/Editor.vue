@@ -45,28 +45,6 @@
         </UPageCard>
       </AnimationsReveal>
     </UPageGrid>
-
-    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
-      <div class="mt-12 mb-4 flex items-center justify-between gap-4 flex-wrap">
-        <h3
-          class="text-lg font-semibold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
-        >
-          Tecnologias usadas neste projeto
-        </h3>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <UBadge
-          v-for="tech in projectTechs"
-          :key="tech.label"
-          variant="outline"
-          size="lg"
-          class="gap-2 px-3 py-1.5 border-[var(--color-secondary)] text-[var(--color-primary)] dark:text-[var(--color-text)]"
-        >
-          <Icon :name="tech.icon" size="16" />
-          {{ tech.label }}
-        </UBadge>
-      </div>
-    </AnimationsReveal>
   </UContainer>
 
   <LandingPageLightbox v-if="cards" v-model="selectedIndex" :images="images" />
@@ -102,18 +80,6 @@ const cards = ref([
     orientation: "vertical" as const,
   },
 ]);
-
-const projectTechs = [
-  { label: "Nuxt 3", icon: "devicon:nuxt" },
-  { label: "NuxtUI", icon: "logos:vue" },
-  { label: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
-  { label: "TypeScript", icon: "skill-icons:typescript" },
-  { label: "jsPDF", icon: "skill-icons:javascript" },
-  { label: "html-to-image", icon: "skill-icons:javascript" },
-  { label: "motion-v", icon: "logos:vue" },
-  { label: "@nuxtjs/seo", icon: "devicon:nuxt" },
-  { label: "@nuxt/image", icon: "devicon:nuxt" },
-];
 const images = computed(() => cards.value.map((c) => c.image.path));
 const selectedIndex = ref<number | null>(null);
 </script>
