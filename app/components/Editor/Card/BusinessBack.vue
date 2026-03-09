@@ -74,6 +74,8 @@
           textAlign: 'center',
           maxWidth: '300px',
           whiteSpace: 'pre-wrap',
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
           color: corTexto,
         }"
       >
