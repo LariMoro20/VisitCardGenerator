@@ -1,32 +1,5 @@
 <template>
   <div class="flex flex-col h-screen overflow-hidden">
-    <header
-      class="px-6 md:px-10 py-4 md:py-5 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
-    >
-      <NuxtLink
-        to="/"
-        class="flex items-center shrink-0 cursor-pointer"
-        aria-label="Ir para página inicial"
-      >
-        <UColorModeImage
-          light="/images/genlogo.png"
-          dark="/images/genlogo_white.png"
-          :height="42"
-          format="webp"
-          class="h-10.5"
-        />
-      </NuxtLink>
-      <h1 class="text-lg md:text-2xl font-normal hidden sm:block">
-        Gerador de Cartão de Visita
-      </h1>
-      <span
-        class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase hidden md:block"
-      >
-        PDF frente e verso
-      </span>
-      <UColorModeButton class="ml-auto md:ml-4" />
-    </header>
-
     <div
       class="flex flex-col md:grid md:grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden"
     >
@@ -51,19 +24,12 @@
         />
       </div>
     </div>
-
-    <footer
-      class="shrink-0 border-t border-[var(--color-secondary)] px-5 py-3 flex items-center justify-center"
-    >
-      <p class="text-[0.75rem] text-[var(--color-text)] opacity-50">
-        Copyright © {{ new Date().getFullYear() }} Larissa Santos. Todos os
-        direitos reservados.
-      </p>
-    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: "editor-layout" });
+
 defineOgImageComponent("NuxtSeo", {
   title: "Editor de Cartão de Visita",
   description: "Personalize e baixe seu cartão de visita em PDF agora mesmo.",

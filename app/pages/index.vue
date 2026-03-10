@@ -1,6 +1,5 @@
 <template>
   <div>
-    <LandingPageHeader />
     <LandingPageHero />
     <LandingPageEditor />
     <LandingPageCard />
@@ -8,12 +7,12 @@
     <LandingPageFAQ />
     <LandingPageAuthor />
     <LandingPageProjectStack />
-
-    <LandingPageFooter />
   </div>
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: "land-page-layout" });
+
 defineOgImageComponent("NuxtSeo", {
   title: "VisitCardGenerator",
   description:
