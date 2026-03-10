@@ -25,14 +25,36 @@
         :delay="i * 0.5"
         class="h-full"
       >
-        <UPageCard v-bind="card" class="h-full" @click="selectedIndex = i">
-          <nuxt-img
-            v-if="card.image"
-            :src="card.image.path"
-            :alt="card.alt"
-            class="w-full"
-            loading="lazy"
-          />
+        <UPageCard
+          v-bind="{ ...card, title: undefined, description: undefined }"
+          class="h-full"
+          @click="selectedIndex = i"
+        >
+          <div class="flex items-center gap-3 lg:block">
+            <nuxt-img
+              v-if="card.image"
+              :src="card.image.path"
+              :alt="card.alt"
+              class="w-1/4 rounded-md shrink-0 lg:w-full"
+              loading="lazy"
+            />
+            <div class="lg:hidden">
+              <p class="font-semibold text-sm text-[var(--color-text)]">
+                {{ card.title }}
+              </p>
+              <p class="text-xs text-[var(--color-text)]/70 mt-1">
+                {{ card.description }}
+              </p>
+            </div>
+          </div>
+          <div class="hidden lg:block mt-2">
+            <p class="font-semibold text-[var(--color-text)]">
+              {{ card.title }}
+            </p>
+            <p class="text-sm text-[var(--color-text)]/70 mt-1">
+              {{ card.description }}
+            </p>
+          </div>
         </UPageCard>
       </AnimationsReveal>
     </UPageGrid>
