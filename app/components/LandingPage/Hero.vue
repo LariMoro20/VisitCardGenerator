@@ -24,7 +24,7 @@
 
     <AnimationsReveal :duration="1" direction="left" type="scale">
       <nuxt-img
-        src="/images/app_assets/step_1.png"
+        src="/images/app_assets/cardExample1.png"
         alt="App screenshot"
         class="rounded-lg shadow-2xl ring ring-default"
       />

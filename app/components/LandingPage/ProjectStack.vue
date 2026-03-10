@@ -4,7 +4,7 @@
       <h2
         class="text-2xl lg:text-3xl font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)] mb-8"
       >
-        Stack do projeto
+        Tecnologias usadas neste projeto
       </h2>
       <div class="flex flex-wrap justify-center gap-3">
         <UMarquee :overlay="false">

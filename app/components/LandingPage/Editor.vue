@@ -1,5 +1,5 @@
 <template>
-  <UContainer id="editor" class="scroll-mt-20">
+  <UContainer id="editor" class="scroll-mt-20 min-h-screen">
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
       <div class="py-8 lg:py-12 text-center flex flex-col items-center gap-4">
         <h2
@@ -14,15 +14,6 @@
           pronto, baixe o PDF com frente e verso no tamanho exato para impressão
           profissional.
         </p>
-        <UButton
-          to="/editor"
-          size="xl"
-          variant="outline"
-          class="font-semibold border-2 border-[var(--color-primary)] dark:border-[var(--color-secondary)] text-[var(--color-primary)] dark:text-[var(--color-secondary)] px-8 hover:opacity-80 mt-2"
-          :ui="{ base: 'hover:bg-transparent' }"
-        >
-          Acessar Editor →
-        </UButton>
       </div>
     </AnimationsReveal>
     <UPageGrid>

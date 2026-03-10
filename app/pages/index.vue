@@ -4,10 +4,11 @@
     <LandingPageHero />
     <LandingPageEditor />
     <LandingPageCard />
-    <LandingPageProjectStack />
     <LandingPageCTA />
     <LandingPageFAQ />
     <LandingPageAuthor />
+    <LandingPageProjectStack />
+
     <LandingPageFooter />
   </div>
 </template>

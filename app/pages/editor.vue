@@ -16,7 +16,7 @@
           class="h-10.5"
         />
       </NuxtLink>
-      <h1 class="font-serif text-lg md:text-2xl font-normal hidden sm:block">
+      <h1 class="text-lg md:text-2xl font-normal hidden sm:block">
         Gerador de Cartão de Visita
       </h1>
       <span

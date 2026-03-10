@@ -2,16 +2,17 @@
   <UContainer class="py-16">
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
       <h2
-        class="text-2xl lg:text-3xl font-serif font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)] mb-8"
+        class="text-2xl lg:text-3xl font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
       >
         Resultado final, pronto para impressão
       </h2>
       <p
-        class="text-base text-center text-[var(--color-text)]/70 max-w-md mx-auto mt-2 mb-6"
+        class="text-base text-center text-[var(--color-primary)]/80 dark:text-white/80 mt-2 mb-6"
       >
         Cartão profissional com frente e verso personalizados, no tamanho exato
         para gráficas.
       </p>
+
       <div class="flex flex-col items-center gap-6">
         <div
           class="flex gap-1 rounded-lg p-1 border border-[var(--color-secondary)]"
@@ -31,22 +32,23 @@
           </button>
         </div>
 
-        <div
-          ref="cardRef"
-          class="overflow-hidden rounded-2xl shadow-[0_28px_72px_rgba(0,0,0,0.65)]"
-          style="transform-style: preserve-3d; transition: transform 0.15s ease"
-          :style="cardStyle"
-          @mousemove="onMouseMove"
-          @mouseleave="onMouseLeave"
-        >
-          <EditorCardBusinessFront
-            v-show="aba === 'frente'"
-            v-bind="cardProps"
-          />
-          <EditorCardBusinessBack
-            v-show="aba === 'verso'"
-            v-bind="cardBackProps"
-          />
+        <div class="w-full flex justify-center py-10 px-6">
+          <div
+            ref="cardRef"
+            class="rounded-2xl shadow-[0_28px_72px_rgba(0,0,0,0.65)] shrink-0 lg:scale-[1.3]"
+            :style="cardStyle"
+            @mousemove="onMouseMove"
+            @mouseleave="onMouseLeave"
+          >
+            <EditorCardBusinessFront
+              v-show="aba === 'frente'"
+              v-bind="cardProps"
+            />
+            <EditorCardBusinessBack
+              v-show="aba === 'verso'"
+              v-bind="cardBackProps"
+            />
+          </div>
         </div>
       </div>
     </AnimationsReveal>
@@ -67,7 +69,7 @@ const cardProps = {
   corDestaque: "#c9a96e",
   bgImage: null,
   bgOpacity: 0.55,
-  logo: null,
+  logo: "images/app_assets/advog_example.png",
   padrao: "solid",
 };
 
@@ -79,7 +81,7 @@ const cardBackProps = {
   corDestaque: "#c9a96e",
   bgImage: null,
   bgOpacity: 0.55,
-  logo: null,
+  logo: "images/app_assets/advog_example.png",
   padrao: "waves",
 };
 
