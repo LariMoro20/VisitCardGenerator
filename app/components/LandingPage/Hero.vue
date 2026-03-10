@@ -12,11 +12,18 @@
   >
     <template #links>
       <UButton
-        to="/editor"
+        to="#example"
         size="xl"
         variant="outline"
         class="font-semibold border-2 border-[var(--color-primary)] dark:border-[var(--color-secondary)] text-[var(--color-primary)] dark:text-[var(--color-secondary)] px-8 hover:opacity-80"
         :ui="{ base: 'hover:bg-transparent' }"
+      >
+        Veja um exemplo
+      </UButton>
+      <UButton
+        to="/editor"
+        size="xl"
+        class="font-semibold bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)] px-8 hover:opacity-90"
       >
         Confira agora →
       </UButton>

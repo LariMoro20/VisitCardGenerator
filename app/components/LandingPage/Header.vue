@@ -147,6 +147,8 @@ const isScrolled = ref(false);
 const navLinks = [
   { label: "Inicio", to: "#hero" },
   { label: "Sobre o editor", to: "#editor" },
+  { label: "FAQ", to: "#faq" },
+
   { label: "Autora", to: "#author" },
   {
     label: "Github",
