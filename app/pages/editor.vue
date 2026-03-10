@@ -29,12 +29,10 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: "editor-layout" });
-
-defineOgImageComponent("NuxtSeo", {
-  title: "Editor de Cartão de Visita",
-  description: "Personalize e baixe seu cartão de visita em PDF agora mesmo.",
-  theme: "#111111",
-  colorMode: "dark",
+defineOgImageComponent("OgImageVisitCardOg", {
+  title: "Editor de Cartão",
+  description:
+    "Personalize cores, logo e padrões. Baixe o PDF pronto para impressão.",
 });
 
 useSeoMeta({

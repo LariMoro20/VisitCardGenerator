@@ -12,13 +12,10 @@
 
 <script setup lang="ts">
 definePageMeta({ layout: "land-page-layout" });
-
-defineOgImageComponent("NuxtSeo", {
+defineOgImageComponent("OgImageVisitCardOg", {
   title: "VisitCardGenerator",
   description:
-    "Crie cartões de visita profissionais em PDF, direto no navegador.",
-  theme: "#111111",
-  colorMode: "dark",
+    "Crie seu cartão de visita em PDF com frente e verso em segundos.",
 });
 
 useSeoMeta({
