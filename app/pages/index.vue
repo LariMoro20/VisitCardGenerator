@@ -16,6 +16,7 @@ defineOgImageComponent("OgImageVisitCardOg", {
   title: "VisitCardGenerator",
   description:
     "Crie seu cartão de visita em PDF com frente e verso em segundos.",
+  cacheKey: "v2",
 });
 
 useSeoMeta({
