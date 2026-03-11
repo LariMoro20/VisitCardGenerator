@@ -2,6 +2,14 @@
 
 > Gere cartões de visita profissionais em PDF, frente e verso, direto no navegador.
 
+![Nuxt](https://img.shields.io/badge/Nuxt_3-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)
+![NuxtUI](https://img.shields.io/badge/NuxtUI-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![jsPDF](https://img.shields.io/badge/jsPDF-FF0000?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)
+![html-to-image](https://img.shields.io/badge/html--to--image-333333?style=for-the-badge&logo=html5&logoColor=white)
+![maska](https://img.shields.io/badge/maska-7C3AED?style=for-the-badge&logo=vue.js&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 ## Visão geral
 
 VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client, nenhum dado é enviado para servidores.
