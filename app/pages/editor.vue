@@ -10,9 +10,9 @@
           v-model:form="form"
           v-model:logo-preview="logoPreview"
           v-model:bg-images="bgImages"
-          :gerando="gerando"
-          :form-valido="formValido"
-          @gerar="gerarPDF"
+          :isGenerating="isGenerating"
+          :form-valido="isFormValid"
+          @gerar="generatePDF"
         />
       </div>
       <div class="flex-1 min-h-0 overflow-hidden">
@@ -65,7 +65,7 @@ const bgImages = ref<Record<string, string | null>>({
   front: null,
   back: null,
 });
-const gerando = ref(false);
+const isGenerating = ref(false);
 const previewRef = ref<{
   cardFrenteRef: { $el: HTMLElement } | null;
   cardVersoRef: { $el: HTMLElement } | null;
@@ -99,10 +99,10 @@ const cardBackProps = computed(() => ({
   pattern: form.pattern,
 }));
 
-const formValido = computed(() => form.companyName.trim().length > 0);
+const isFormValid = computed(() => form.companyName.trim().length > 0);
 
-async function gerarPDF() {
-  gerando.value = true;
+async function generatePDF() {
+  isGenerating.value = true;
   try {
     const [{ toPng }, { jsPDF }] = await Promise.all([
       import("html-to-image"),
@@ -141,9 +141,9 @@ async function gerarPDF() {
     const name = (form.companyName || "cartao")
       .toLowerCase()
       .replace(/\s+/g, "-");
-    pdf.save(`${name}-cartao-de-visita.pdf`);
+    pdf.save(`${name}-visitcard.pdf`);
   } finally {
-    gerando.value = false;
+    isGenerating.value = false;
   }
 }
 </script>
