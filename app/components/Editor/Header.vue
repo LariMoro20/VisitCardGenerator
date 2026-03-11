@@ -10,7 +10,7 @@
       <UColorModeImage
         light="/images/genlogo.png"
         dark="/images/genlogo_white.png"
-        :height="32"
+        :height="42"
         format="webp"
       />
     </NuxtLink>
