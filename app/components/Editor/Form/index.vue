@@ -13,6 +13,26 @@
       />
     </EditorFormField>
 
+    <EditorFormField label="Tamanho do logotipo">
+      <div class="flex gap-1">
+        <UButton
+          v-for="opt in logoSizeOptions"
+          :key="opt.value"
+          variant="ghost"
+          size="xs"
+          class="flex-1 justify-center transition-colors"
+          :class="
+            form.logoSize === opt.value
+              ? 'bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]'
+              : 'border border-[var(--color-secondary)] text-[var(--color-text)]'
+          "
+          @click="form.logoSize = opt.value"
+        >
+          {{ opt.label }}
+        </UButton>
+      </div>
+    </EditorFormField>
+
     <EditorFormField label="Nome da empresa">
       <UInput
         v-model="form.companyName"
@@ -162,13 +182,13 @@
     <UButton
       block
       size="lg"
-      :loading="gerando"
-      :disabled="!formValido || gerando"
+      :loading="isGenerating"
+      :disabled="!formValido || isGenerating"
       :color="isDark ? 'secondary' : 'primary'"
       class="text-white hover:opacity-90"
-      @click="emit('gerar')"
+      @click="emit('generate')"
     >
-      {{ gerando ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
+      {{ isGenerating ? "isGenerating PDF…" : "↓ Baixar PDF (frente + verso)" }}
     </UButton>
   </aside>
 </template>
@@ -177,8 +197,8 @@
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
-defineProps<{ gerando: boolean; formValido: boolean }>();
-const emit = defineEmits<{ gerar: [] }>();
+defineProps<{ isGenerating: boolean; formValido: boolean }>();
+const emit = defineEmits<{ generate: [] }>();
 
 type ColorKey = "backgroundColor" | "textColor" | "accentColor" | "backColor";
 type Form = {
@@ -195,6 +215,7 @@ type Form = {
   patternOnFront: boolean;
   bgOpacity: number;
   alignment: "left" | "center" | "right" | "custom";
+  logoSize: "sm" | "md" | "lg";
 };
 
 const form = defineModel<Form>("form", { required: true });
@@ -206,6 +227,12 @@ const bgImages = defineModel<Record<string, string | null>>("bgImages", {
 const emailValido = computed(() =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email),
 );
+
+const logoSizeOptions = [
+  { value: "sm" as const, label: "P" },
+  { value: "md" as const, label: "M" },
+  { value: "lg" as const, label: "G" },
+];
 
 const alignOptions = [
   {

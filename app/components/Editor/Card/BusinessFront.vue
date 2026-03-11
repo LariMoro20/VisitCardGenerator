@@ -150,6 +150,7 @@ const props = defineProps<{
   logo?: string | null;
   pattern: string;
   alignment?: "left" | "center" | "right" | "custom";
+  logoSize?: "sm" | "md" | "lg";
 }>();
 
 const { backgroundColor, textColor, accentColor, bgOpacity, pattern } =
@@ -233,13 +234,19 @@ const alignConfig = computed(
   () => ALIGN_MAP[alignment.value] ?? ALIGN_MAP.custom,
 );
 
-const logoImgStyle = {
-  width: "50px",
-  height: "50px",
+const LOGO_SIZES = {
+  sm: "36px",
+  md: "50px",
+  lg: "68px",
+};
+
+const logoImgStyle = computed(() => ({
+  height: LOGO_SIZES[props.logoSize ?? "md"],
+  width: "auto",
   objectFit: "contain",
   borderRadius: "8px",
   display: "block",
-};
+}));
 
 const logoPlaceholderStyle = computed(() => ({
   width: "50px",

@@ -12,7 +12,7 @@
           v-model:bg-images="bgImages"
           :isGenerating="isGenerating"
           :form-valido="isFormValid"
-          @gerar="generatePDF"
+          @generate="generatePDF"
         />
       </div>
       <div class="flex-1 min-h-0 overflow-hidden">
@@ -58,6 +58,7 @@ const form = reactive({
   patternOnFront: false,
   bgOpacity: 0.55,
   alignment: "custom" as "left" | "center" | "right" | "custom",
+  logoSize: "md" as "sm" | "md" | "lg",
 });
 
 const logoPreview = ref<string | null>(null);
@@ -85,6 +86,7 @@ const cardFrontProps = computed(() => ({
   logo: logoPreview.value,
   pattern: form.patternOnFront ? form.pattern : "solid",
   alignment: form.alignment,
+  logoSize: form.logoSize,
 }));
 
 const cardBackProps = computed(() => ({
@@ -97,6 +99,7 @@ const cardBackProps = computed(() => ({
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   pattern: form.pattern,
+  logoSize: form.logoSize,
 }));
 
 const isFormValid = computed(() => form.companyName.trim().length > 0);

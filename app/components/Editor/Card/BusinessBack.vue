@@ -28,28 +28,8 @@
         z-index: 10;
       "
     >
-      <img
-        v-if="logo"
-        :src="logo"
-        style="width: 68px; height: 68px; object-fit: contain; display: block"
-      />
-      <div
-        v-else
-        :style="{
-          width: '68px',
-          height: '68px',
-          borderRadius: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '1.7rem',
-          fontWeight: '700',
-          background: accentColor + '25',
-          color: accentColor,
-        }"
-      >
-        {{ initial }}
-      </div>
+      <img v-if="logo" :src="logo" :style="logoImgStyle" />
+      <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
       <div
         :style="{
           fontFamily: `'Playfair Display', serif`,
@@ -96,6 +76,7 @@ const props = defineProps<{
   bgOpacity: number;
   logo?: string | null;
   pattern: string;
+  logoSize?: "sm" | "md" | "lg";
 }>();
 
 const { backgroundColor, bgOpacity, pattern, accentColor } = toRefs(props);
@@ -106,6 +87,31 @@ const patternSvg = computed(
     PATTERNS.find((p) => p.id === pattern.value)?.render(accentColor.value) ??
     "",
 );
+
+const LOGO_SIZES_BACK = { sm: "48px", md: "68px", lg: "90px" };
+
+const logoImgStyle = computed(() => ({
+  height: LOGO_SIZES_BACK[props.logoSize ?? "md"],
+  width: "auto",
+  objectFit: "contain",
+  display: "block",
+}));
+
+const logoPlaceholderStyle = computed(() => {
+  const size = LOGO_SIZES_BACK[props.logoSize ?? "md"];
+  return {
+    width: size,
+    height: size,
+    borderRadius: "12px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.7rem",
+    fontWeight: "700",
+    background: accentColor.value + "25",
+    color: accentColor.value,
+  };
+});
 
 const cardStyle = computed(() => ({
   width: "520px",
