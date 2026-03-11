@@ -12,7 +12,7 @@
     />
 
     <svg
-      v-if="pattern !== 'solid'"
+      v-if="padrao !== 'solid'"
       viewBox="0 0 520 296"
       preserveAspectRatio="xMidYMid slice"
       :style="layerFull"
@@ -30,7 +30,6 @@
         zIndex: '10',
       }"
     />
-
     <div
       v-if="!bgImage"
       :style="{
@@ -46,47 +45,15 @@
       }"
     />
 
-    <div
-      :style="{
-        position: 'relative',
-        zIndex: '10',
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        gap: '16px',
-      }"
-    >
-      <div style="flex-shrink: 0">
-        <img
-          v-if="logo"
-          :src="logo"
-          :style="{
-            width: '50px',
-            height: '50px',
-            objectFit: 'contain',
-            borderRadius: '8px',
-            display: 'block',
-          }"
-        />
-        <div
-          v-else
-          :style="{
-            width: '50px',
-            height: '50px',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '1.1rem',
-            fontWeight: '700',
-            background: corDestaque + '22',
-            color: corDestaque,
-          }"
-        >
-          {{ initial }}
+    <div :style="alignConfig.header">
+      <template v-if="alinhamento !== 'center'">
+        <div v-if="alignConfig.logoFirst" style="flex-shrink: 0">
+          <img v-if="logo" :src="logo" :style="logoImgStyle" />
+          <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
         </div>
-      </div>
-      <div style="text-align: right; flex: 1; min-width: 0">
+      </template>
+
+      <div :style="alignConfig.textBlock">
         <div
           :style="{
             fontFamily: `'Playfair Display', serif`,
@@ -114,6 +81,20 @@
           {{ descricao }}
         </div>
       </div>
+
+      <template v-if="alinhamento === 'center'">
+        <div style="flex-shrink: 0">
+          <img v-if="logo" :src="logo" :style="logoImgStyle" />
+          <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
+        </div>
+      </template>
+
+      <template v-if="alinhamento !== 'center' && !alignConfig.logoFirst">
+        <div style="flex-shrink: 0">
+          <img v-if="logo" :src="logo" :style="logoImgStyle" />
+          <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
+        </div>
+      </template>
     </div>
 
     <div
@@ -133,6 +114,7 @@
         display: 'flex',
         flexDirection: 'column',
         gap: '5px',
+        alignItems: alignConfig.contactAlign,
       }"
     >
       <div v-if="telefone" :style="contactRow">
@@ -167,16 +149,109 @@ const props = defineProps<{
   bgOpacity: number;
   logo?: string | null;
   padrao: string;
+  alinhamento?: "left" | "center" | "right" | "custom";
 }>();
 
 const { corFundo, corTexto, corDestaque, bgOpacity, padrao } = toRefs(props);
 
+const alinhamento = computed(() => props.alinhamento ?? "custom");
 const initial = computed(() => props.empresa?.[0]?.toUpperCase() ?? "?");
 const patternSvg = computed(
   () =>
     PATTERNS.find((p) => p.id === padrao.value)?.render(corDestaque.value) ??
     "",
 );
+
+type AlignConfig = {
+  header: Record<string, string>;
+  textBlock: Record<string, string>;
+  contactAlign: string;
+  logoFirst: boolean;
+};
+
+const ALIGN_MAP: Record<string, AlignConfig> = {
+  custom: {
+    header: {
+      position: "relative",
+      zIndex: "10",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: "16px",
+    },
+    textBlock: { flex: "1", minWidth: "0", textAlign: "right" },
+    contactAlign: "flex-start",
+    logoFirst: true,
+  },
+  left: {
+    header: {
+      position: "relative",
+      zIndex: "10",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "flex-start",
+      gap: "16px",
+    },
+    textBlock: { flex: "1", minWidth: "0", textAlign: "left" },
+    contactAlign: "flex-start",
+    logoFirst: true,
+  },
+  center: {
+    header: {
+      position: "relative",
+      zIndex: "10",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "16px",
+    },
+    textBlock: { textAlign: "center" },
+    contactAlign: "center",
+    logoFirst: false,
+  },
+  right: {
+    header: {
+      position: "relative",
+      zIndex: "10",
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "flex-start",
+      justifyContent: "space-between",
+      gap: "16px",
+    },
+    textBlock: { flex: "1", minWidth: "0", textAlign: "right" },
+    contactAlign: "flex-end",
+    logoFirst: false,
+  },
+};
+
+const alignConfig = computed(
+  () => ALIGN_MAP[alinhamento.value] ?? ALIGN_MAP.custom,
+);
+
+const logoImgStyle = {
+  width: "50px",
+  height: "50px",
+  objectFit: "contain",
+  borderRadius: "8px",
+  display: "block",
+};
+
+const logoPlaceholderStyle = computed(() => ({
+  width: "50px",
+  height: "50px",
+  borderRadius: "8px",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontSize: "1.1rem",
+  fontWeight: "700",
+  background: corDestaque.value + "22",
+  color: corDestaque.value,
+}));
 
 const cardStyle = computed(() => ({
   width: "520px",
@@ -199,7 +274,6 @@ const layerFull = {
   height: "100%",
   objectFit: "cover",
 };
-
 const contactRow = computed(() => ({
   display: "flex",
   alignItems: "center",
@@ -208,7 +282,6 @@ const contactRow = computed(() => ({
   opacity: "0.85",
   color: corTexto.value,
 }));
-
 const iconWrap = {
   width: "15px",
   height: "15px",

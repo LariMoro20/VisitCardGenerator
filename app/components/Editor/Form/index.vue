@@ -32,9 +32,29 @@
         />
         <span
           class="text-[.72rem] text-[var(--color-placeholder)] text-right px-1"
+          >{{ form.descricao.length }}/200</span
         >
-          {{ form.descricao.length }}/200
-        </span>
+      </div>
+    </EditorFormField>
+
+    <EditorFormField label="Alinhamento do texto">
+      <div class="flex gap-1">
+        <UButton
+          v-for="opt in alignOptions"
+          :key="opt.value"
+          variant="ghost"
+          size="xs"
+          class="flex-1 justify-center transition-colors"
+          :class="
+            form.alinhamento === opt.value
+              ? 'bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]'
+              : 'border border-[var(--color-secondary)] text-[var(--color-text)]'
+          "
+          :aria-label="opt.label"
+          @click="form.alinhamento = opt.value"
+        >
+          <UIcon :name="opt.icon" class="w-4 h-4" />
+        </UButton>
       </div>
     </EditorFormField>
 
@@ -62,9 +82,8 @@
         <span
           v-if="form.email && !emailValido"
           class="text-[.72rem] text-[var(--color-negative)] px-1"
+          >E-mail inválido</span
         >
-          E-mail inválido
-        </span>
       </div>
     </EditorFormField>
 
@@ -174,6 +193,7 @@ type Form = {
   padrao: string;
   padraoNaFrente: boolean;
   bgOpacity: number;
+  alinhamento: "left" | "center" | "right" | "custom";
 };
 
 const form = defineModel<Form>("form", { required: true });
@@ -185,6 +205,21 @@ const bgImages = defineModel<Record<string, string | null>>("bgImages", {
 const emailValido = computed(() =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email),
 );
+
+const alignOptions = [
+  {
+    value: "custom" as const,
+    label: "Original",
+    icon: "mdi:format-align-justify",
+  },
+  { value: "left" as const, label: "Esquerda", icon: "mdi:format-align-left" },
+  {
+    value: "center" as const,
+    label: "Centro",
+    icon: "mdi:format-align-center",
+  },
+  { value: "right" as const, label: "Direita", icon: "mdi:format-align-right" },
+];
 
 const inputUi = {
   root: "w-full",

@@ -57,6 +57,7 @@ const form = reactive({
   padrao: "circles",
   padraoNaFrente: false,
   bgOpacity: 0.55,
+  alinhamento: "custom" as "left" | "center" | "right" | "custom",
 });
 
 const logoPreview = ref<string | null>(null);
@@ -83,6 +84,7 @@ const cardFrenteProps = computed(() => ({
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   padrao: form.padraoNaFrente ? form.padrao : "solid",
+  alinhamento: form.alinhamento,
 }));
 
 const cardVersoProps = computed(() => ({
