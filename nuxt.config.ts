@@ -27,6 +27,7 @@ export default defineNuxtConfig({
     "@nuxt/scripts",
     "@nuxt/ui",
     "@nuxtjs/seo",
+    "@vercel/analytics",
   ],
 
   image: {
