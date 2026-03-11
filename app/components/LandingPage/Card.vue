@@ -17,20 +17,19 @@
           class="flex gap-1 rounded-lg p-1 border border-[var(--color-secondary)]"
         >
           <button
-            v-for="tab in ['frente', 'verso'] as const"
-            :key="tab"
+            v-for="tab in tabs"
+            :key="tab.value"
             class="text-[.78rem] px-4.5 py-1.5 rounded-md cursor-pointer border-0 transition-colors tracking-[.04em] capitalize"
             :class="
-              aba === tab
+              activeTab === tab.value
                 ? 'bg-[var(--color-secondary)] text-[var(--color-background)] font-semibold'
                 : 'bg-transparent text-[var(--color-text)]'
             "
-            @click="trocarAba(tab)"
+            @click="switchTab(tab.value)"
           >
-            {{ tab }}
+            {{ tab.label }}
           </button>
         </div>
-
         <div class="w-full flex justify-center py-10 px-6">
           <div :style="flipWrapperStyle">
             <div
@@ -41,11 +40,11 @@
               @mouseleave="onMouseLeave"
             >
               <EditorCardBusinessFront
-                v-show="aba === 'frente'"
-                v-bind="cardProps"
+                v-show="activeTab === 'front'"
+                v-bind="cardFrontProps"
               />
               <EditorCardBusinessBack
-                v-show="aba === 'verso'"
+                v-show="activeTab === 'back'"
                 v-bind="cardBackProps"
               />
             </div>
@@ -57,33 +56,38 @@
 </template>
 
 <script setup lang="ts">
-const aba = ref<"frente" | "verso">("frente");
+const activeTab = ref<"front" | "back">("front");
 
-const cardProps = {
-  empresa: "Ana Beatriz Advocacia",
-  descricao: "Direito Civil, Trabalhista e Previdenciário",
-  telefone: "(51) 99874-3210",
+const tabs = [
+  { value: "front" as const, label: "Frente" },
+  { value: "back" as const, label: "Verso" },
+];
+
+const cardFrontProps = {
+  companyName: "Ana Beatriz Advocacia",
+  description: "Direito Civil, Trabalhista e Previdenciário",
+  phone: "(51) 99874-3210",
   email: "contato@anabeatrizadv.com.br",
-  site: "www.anabeatrizadv.com.br",
-  corFundo: "#1a1a2e",
-  corTexto: "#e8e4dc",
-  corDestaque: "#c9a96e",
+  website: "www.anabeatrizadv.com.br",
+  backgroundColor: "#1a1a2e",
+  textColor: "#e8e4dc",
+  accentColor: "#c9a96e",
   bgImage: null,
   bgOpacity: 0.55,
   logo: "images/app_assets/advog_example.png",
-  padrao: "solid",
+  pattern: "solid",
 };
 
 const cardBackProps = {
-  empresa: "Ana Beatriz Advocacia",
-  descricao: "Direito Civil, Trabalhista e Previdenciário",
-  corFundo: "#111827",
-  corTexto: "#e8e4dc",
-  corDestaque: "#c9a96e",
+  companyName: "Ana Beatriz Advocacia",
+  description: "Direito Civil, Trabalhista e Previdenciário",
+  backgroundColor: "#111827",
+  textColor: "#e8e4dc",
+  accentColor: "#c9a96e",
   bgImage: null,
   bgOpacity: 0.55,
   logo: "images/app_assets/advog_example.png",
-  padrao: "waves",
+  pattern: "waves",
 };
 
 const rx = ref(0);
@@ -101,21 +105,20 @@ const cardStyle = computed(() => ({
   transition: "transform 0.15s ease",
 }));
 
-async function trocarAba(tab: "frente" | "verso") {
-  if (isFlipping.value || aba.value === tab) return;
+async function switchTab(tab: "front" | "back") {
+  if (isFlipping.value || activeTab.value === tab) return;
   isFlipping.value = true;
 
   flipY.value = 90;
   await new Promise((r) => setTimeout(r, 350));
 
-  aba.value = tab;
+  activeTab.value = tab;
   flipY.value = -90;
 
   await nextTick();
   requestAnimationFrame(() => {
     flipY.value = 0;
   });
-
   setTimeout(() => {
     isFlipping.value = false;
   }, 350);

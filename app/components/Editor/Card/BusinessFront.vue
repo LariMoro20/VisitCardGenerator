@@ -6,13 +6,13 @@
       :style="{
         position: 'absolute',
         inset: '0',
-        background: corFundo,
+        background: backgroundColor,
         opacity: String(bgOpacity),
       }"
     />
 
     <svg
-      v-if="padrao !== 'solid'"
+      v-if="pattern !== 'solid'"
       viewBox="0 0 520 296"
       preserveAspectRatio="xMidYMid slice"
       :style="layerFull"
@@ -26,7 +26,7 @@
         left: '0',
         right: '0',
         height: '4px',
-        background: corDestaque,
+        background: accentColor,
         zIndex: '10',
       }"
     />
@@ -41,12 +41,12 @@
         top: '-80px',
         opacity: '0.12',
         zIndex: '1',
-        background: corDestaque,
+        background: accentColor,
       }"
     />
 
     <div :style="alignConfig.header">
-      <template v-if="alinhamento !== 'center'">
+      <template v-if="alignment !== 'center'">
         <div v-if="alignConfig.logoFirst" style="flex-shrink: 0">
           <img v-if="logo" :src="logo" :style="logoImgStyle" />
           <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
@@ -60,13 +60,13 @@
             fontSize: '1.2rem',
             fontWeight: '700',
             lineHeight: '1.2',
-            color: corTexto,
+            color: textColor,
           }"
         >
-          {{ empresa || "Nome da Empresa" }}
+          {{ companyName || "Nome da Empresa" }}
         </div>
         <div
-          v-if="descricao"
+          v-if="description"
           :style="{
             fontSize: '0.67rem',
             fontWeight: '300',
@@ -75,21 +75,21 @@
             lineHeight: '1.55',
             whiteSpace: 'pre-wrap',
             wordBreak: 'break-word',
-            color: corTexto,
+            color: textColor,
           }"
         >
-          {{ descricao }}
+          {{ description }}
         </div>
       </div>
 
-      <template v-if="alinhamento === 'center'">
+      <template v-if="alignment === 'center'">
         <div style="flex-shrink: 0">
           <img v-if="logo" :src="logo" :style="logoImgStyle" />
           <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
         </div>
       </template>
 
-      <template v-if="alinhamento !== 'center' && !alignConfig.logoFirst">
+      <template v-if="alignment !== 'center' && !alignConfig.logoFirst">
         <div style="flex-shrink: 0">
           <img v-if="logo" :src="logo" :style="logoImgStyle" />
           <div v-else :style="logoPlaceholderStyle">{{ initial }}</div>
@@ -103,7 +103,7 @@
         zIndex: '10',
         height: '1px',
         opacity: '0.2',
-        background: corTexto,
+        background: textColor,
       }"
     />
 
@@ -117,17 +117,17 @@
         alignItems: alignConfig.contactAlign,
       }"
     >
-      <div v-if="telefone" :style="contactRow">
+      <div v-if="phone" :style="contactRow">
         <span :style="iconWrap" v-html="phoneIcon" />
-        <span style="line-height: 1">{{ telefone }}</span>
+        <span style="line-height: 1">{{ phone }}</span>
       </div>
       <div v-if="email" :style="contactRow">
         <span :style="iconWrap" v-html="emailIcon" />
         <span style="line-height: 1">{{ email }}</span>
       </div>
-      <div v-if="site" :style="contactRow">
+      <div v-if="website" :style="contactRow">
         <span :style="iconWrap" v-html="globeIcon" />
-        <span style="line-height: 1">{{ site }}</span>
+        <span style="line-height: 1">{{ website }}</span>
       </div>
     </div>
   </div>
@@ -137,28 +137,29 @@
 import { PATTERNS } from "../../../utils/patterns";
 
 const props = defineProps<{
-  empresa: string;
-  descricao: string;
-  telefone: string;
+  companyName: string;
+  description: string;
+  phone: string;
   email: string;
-  site: string;
-  corFundo: string;
-  corTexto: string;
-  corDestaque: string;
+  website: string;
+  backgroundColor: string;
+  textColor: string;
+  accentColor: string;
   bgImage?: string | null;
   bgOpacity: number;
   logo?: string | null;
-  padrao: string;
-  alinhamento?: "left" | "center" | "right" | "custom";
+  pattern: string;
+  alignment?: "left" | "center" | "right" | "custom";
 }>();
 
-const { corFundo, corTexto, corDestaque, bgOpacity, padrao } = toRefs(props);
+const { backgroundColor, textColor, accentColor, bgOpacity, pattern } =
+  toRefs(props);
 
-const alinhamento = computed(() => props.alinhamento ?? "custom");
-const initial = computed(() => props.empresa?.[0]?.toUpperCase() ?? "?");
+const alignment = computed(() => props.alignment ?? "custom");
+const initial = computed(() => props.companyName?.[0]?.toUpperCase() ?? "?");
 const patternSvg = computed(
   () =>
-    PATTERNS.find((p) => p.id === padrao.value)?.render(corDestaque.value) ??
+    PATTERNS.find((p) => p.id === pattern.value)?.render(accentColor.value) ??
     "",
 );
 
@@ -229,7 +230,7 @@ const ALIGN_MAP: Record<string, AlignConfig> = {
 };
 
 const alignConfig = computed(
-  () => ALIGN_MAP[alinhamento.value] ?? ALIGN_MAP.custom,
+  () => ALIGN_MAP[alignment.value] ?? ALIGN_MAP.custom,
 );
 
 const logoImgStyle = {
@@ -249,8 +250,8 @@ const logoPlaceholderStyle = computed(() => ({
   justifyContent: "center",
   fontSize: "1.1rem",
   fontWeight: "700",
-  background: corDestaque.value + "22",
-  color: corDestaque.value,
+  background: accentColor.value + "22",
+  color: accentColor.value,
 }));
 
 const cardStyle = computed(() => ({
@@ -258,7 +259,7 @@ const cardStyle = computed(() => ({
   height: "296px",
   padding: "28px 34px 26px",
   fontFamily: "'DM Sans', sans-serif",
-  background: corFundo.value,
+  background: backgroundColor.value,
   position: "relative",
   overflow: "hidden",
   display: "flex",
@@ -280,7 +281,7 @@ const contactRow = computed(() => ({
   gap: "6px",
   fontSize: "0.7rem",
   opacity: "0.85",
-  color: corTexto.value,
+  color: textColor.value,
 }));
 const iconWrap = {
   width: "15px",
@@ -295,7 +296,7 @@ const iconWrap = {
 const icon = (path: string) =>
   computed(
     () =>
-      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${corDestaque.value}" stroke-width="2" stroke-linecap="round" style="display:block">${path}</svg>`,
+      `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="${accentColor.value}" stroke-width="2" stroke-linecap="round" style="display:block">${path}</svg>`,
   );
 
 const phoneIcon = icon(

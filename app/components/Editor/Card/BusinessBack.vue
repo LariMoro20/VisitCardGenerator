@@ -6,18 +6,16 @@
       :style="{
         position: 'absolute',
         inset: '0',
-        background: corFundo,
+        background: backgroundColor,
         opacity: String(bgOpacity),
       }"
     />
-
     <svg
       viewBox="0 0 520 296"
       preserveAspectRatio="xMidYMid slice"
       :style="layerFull"
       v-html="patternSvg"
     />
-
     <div
       style="
         position: absolute;
@@ -46,8 +44,8 @@
           justifyContent: 'center',
           fontSize: '1.7rem',
           fontWeight: '700',
-          background: corDestaque + '25',
-          color: corDestaque,
+          background: accentColor + '25',
+          color: accentColor,
         }"
       >
         {{ initial }}
@@ -58,13 +56,13 @@
           fontSize: '1.05rem',
           fontWeight: '700',
           letterSpacing: '0.04em',
-          color: corTexto,
+          color: textColor,
         }"
       >
-        {{ empresa || "Nome da Empresa" }}
+        {{ companyName || "Nome da Empresa" }}
       </div>
       <div
-        v-if="descricao"
+        v-if="description"
         :style="{
           fontSize: '0.62rem',
           fontWeight: '300',
@@ -76,10 +74,10 @@
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
           overflowWrap: 'break-word',
-          color: corTexto,
+          color: textColor,
         }"
       >
-        {{ descricao }}
+        {{ description }}
       </div>
     </div>
   </div>
@@ -89,23 +87,23 @@
 import { PATTERNS } from "../../../utils/patterns";
 
 const props = defineProps<{
-  empresa: string;
-  descricao: string;
-  corFundo: string;
-  corTexto: string;
-  corDestaque: string;
+  companyName: string;
+  description: string;
+  backgroundColor: string;
+  textColor: string;
+  accentColor: string;
   bgImage?: string | null;
   bgOpacity: number;
   logo?: string | null;
-  padrao: string;
+  pattern: string;
 }>();
 
-const { corFundo, corTexto, corDestaque, bgOpacity, padrao } = toRefs(props);
+const { backgroundColor, bgOpacity, pattern, accentColor } = toRefs(props);
 
-const initial = computed(() => props.empresa?.[0]?.toUpperCase() ?? "?");
+const initial = computed(() => props.companyName?.[0]?.toUpperCase() ?? "?");
 const patternSvg = computed(
   () =>
-    PATTERNS.find((p) => p.id === padrao.value)?.render(corDestaque.value) ??
+    PATTERNS.find((p) => p.id === pattern.value)?.render(accentColor.value) ??
     "",
 );
 
@@ -113,7 +111,7 @@ const cardStyle = computed(() => ({
   width: "520px",
   height: "296px",
   fontFamily: "'DM Sans', sans-serif",
-  background: corFundo.value,
+  background: backgroundColor.value,
   position: "relative",
   overflow: "hidden",
   boxSizing: "border-box",

@@ -19,8 +19,8 @@
         <EditorCardPreview
           ref="previewRef"
           class="h-full w-full"
-          :card-frente-props="cardFrenteProps"
-          :card-verso-props="cardVersoProps"
+          :card-frente-props="cardFrontProps"
+          :card-verso-props="cardBackProps"
         />
       </div>
     </div>
@@ -45,25 +45,25 @@ useSeoMeta({
 });
 
 const form = reactive({
-  empresa: "",
-  descricao: "",
-  telefone: "",
+  companyName: "",
+  description: "",
+  phone: "",
   email: "",
-  site: "",
-  corFundo: "#1a1a2e",
-  corTexto: "#e8e4dc",
-  corDestaque: "#c9a96e",
-  corVerso: "#111827",
-  padrao: "circles",
-  padraoNaFrente: false,
+  website: "",
+  backgroundColor: "#1a1a2e",
+  textColor: "#e8e4dc",
+  accentColor: "#c9a96e",
+  backColor: "#111827",
+  pattern: "circles",
+  patternOnFront: false,
   bgOpacity: 0.55,
-  alinhamento: "custom" as "left" | "center" | "right" | "custom",
+  alignment: "custom" as "left" | "center" | "right" | "custom",
 });
 
 const logoPreview = ref<string | null>(null);
 const bgImages = ref<Record<string, string | null>>({
-  frente: null,
-  verso: null,
+  front: null,
+  back: null,
 });
 const gerando = ref(false);
 const previewRef = ref<{
@@ -71,35 +71,35 @@ const previewRef = ref<{
   cardVersoRef: { $el: HTMLElement } | null;
 } | null>(null);
 
-const cardFrenteProps = computed(() => ({
-  empresa: form.empresa,
-  descricao: form.descricao,
-  telefone: form.telefone,
+const cardFrontProps = computed(() => ({
+  companyName: form.companyName,
+  description: form.description,
+  phone: form.phone,
   email: form.email,
-  site: form.site,
-  corFundo: form.corFundo,
-  corTexto: form.corTexto,
-  corDestaque: form.corDestaque,
-  bgImage: bgImages.value.frente,
+  website: form.website,
+  backgroundColor: form.backgroundColor,
+  textColor: form.textColor,
+  accentColor: form.accentColor,
+  bgImage: bgImages.value.front,
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
-  padrao: form.padraoNaFrente ? form.padrao : "solid",
-  alinhamento: form.alinhamento,
+  pattern: form.patternOnFront ? form.pattern : "solid",
+  alignment: form.alignment,
 }));
 
-const cardVersoProps = computed(() => ({
-  empresa: form.empresa,
-  descricao: form.descricao,
-  corFundo: form.corVerso,
-  corTexto: form.corTexto,
-  corDestaque: form.corDestaque,
-  bgImage: bgImages.value.verso,
+const cardBackProps = computed(() => ({
+  companyName: form.companyName,
+  description: form.description,
+  backgroundColor: form.backColor,
+  textColor: form.textColor,
+  accentColor: form.accentColor,
+  bgImage: bgImages.value.back,
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
-  padrao: form.padrao,
+  pattern: form.pattern,
 }));
 
-const formValido = computed(() => form.empresa.trim().length > 0);
+const formValido = computed(() => form.companyName.trim().length > 0);
 
 async function gerarPDF() {
   gerando.value = true;
@@ -111,35 +111,37 @@ async function gerarPDF() {
 
     await document.fonts.ready;
 
-    const frenteEl = previewRef.value?.cardFrenteRef?.$el as HTMLElement;
-    const versoEl = previewRef.value?.cardVersoRef?.$el as HTMLElement;
+    const frontEl = previewRef.value?.cardFrenteRef?.$el as HTMLElement;
+    const backEl = previewRef.value?.cardVersoRef?.$el as HTMLElement;
 
-    const prevFrente = frenteEl.style.display;
-    const prevVerso = versoEl.style.display;
-    frenteEl.style.display = "flex";
-    versoEl.style.display = "block";
+    const prevFront = frontEl.style.display;
+    const prevBack = backEl.style.display;
+    frontEl.style.display = "flex";
+    backEl.style.display = "block";
 
     await new Promise((r) => setTimeout(r, 100));
 
-    const [pngFrente, pngVerso] = await Promise.all([
-      toPng(frenteEl, { pixelRatio: 3, skipFonts: true }),
-      toPng(versoEl, { pixelRatio: 3, skipFonts: true }),
+    const [pngFront, pngBack] = await Promise.all([
+      toPng(frontEl, { pixelRatio: 3, skipFonts: true }),
+      toPng(backEl, { pixelRatio: 3, skipFonts: true }),
     ]);
 
-    frenteEl.style.display = prevFrente;
-    versoEl.style.display = prevVerso;
+    frontEl.style.display = prevFront;
+    backEl.style.display = prevBack;
 
     const pdf = new jsPDF({
       orientation: "landscape",
       unit: "mm",
       format: [88.9, 50.8],
     });
-    pdf.addImage(pngFrente, "PNG", 0, 0, 88.9, 50.8);
+    pdf.addImage(pngFront, "PNG", 0, 0, 88.9, 50.8);
     pdf.addPage();
-    pdf.addImage(pngVerso, "PNG", 0, 0, 88.9, 50.8);
+    pdf.addImage(pngBack, "PNG", 0, 0, 88.9, 50.8);
 
-    const nome = (form.empresa || "cartao").toLowerCase().replace(/\s+/g, "-");
-    pdf.save(`${nome}-cartao-de-visita.pdf`);
+    const name = (form.companyName || "cartao")
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+    pdf.save(`${name}-cartao-de-visita.pdf`);
   } finally {
     gerando.value = false;
   }

@@ -24,7 +24,7 @@
     </div>
     <div class="flex items-center gap-2.5">
       <UCheckbox
-        v-model="padraoNaFrente"
+        v-model="patternOnFront"
         label=" Usar padrão também na frente "
       />
     </div>
@@ -35,8 +35,9 @@
 import { PATTERNS } from "../../../utils/patterns";
 
 defineProps<{ accentColor: string; bgColor: string }>();
+
 const model = defineModel<string>({ required: true });
-const padraoNaFrente = defineModel<boolean>("padraoNaFrente", {
+const patternOnFront = defineModel<boolean>("patternOnFront", {
   required: true,
 });
 </script>

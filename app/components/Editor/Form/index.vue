@@ -3,6 +3,7 @@
     class="border-r border-[var(--color-secondary)] px-[22px] py-6 overflow-y-auto flex flex-col gap-4"
   >
     <EditorFormLabel>Identidade</EditorFormLabel>
+
     <EditorFormField label="Logotipo">
       <UFileUpload
         :dropzone="false"
@@ -14,7 +15,7 @@
 
     <EditorFormField label="Nome da empresa">
       <UInput
-        v-model="form.empresa"
+        v-model="form.companyName"
         placeholder="Ex: Studio Forma"
         :maxlength="50"
         :ui="inputUi"
@@ -24,7 +25,7 @@
     <EditorFormField label="Descrição / tagline">
       <div class="flex flex-col gap-1">
         <UTextarea
-          v-model="form.descricao"
+          v-model="form.description"
           placeholder="Descreva sua empresa em algumas palavras…"
           :maxlength="200"
           :rows="3"
@@ -32,7 +33,7 @@
         />
         <span
           class="text-[.72rem] text-[var(--color-placeholder)] text-right px-1"
-          >{{ form.descricao.length }}/200</span
+          >{{ form.description.length }}/200</span
         >
       </div>
     </EditorFormField>
@@ -46,12 +47,12 @@
           size="xs"
           class="flex-1 justify-center transition-colors"
           :class="
-            form.alinhamento === opt.value
+            form.alignment === opt.value
               ? 'bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]'
               : 'border border-[var(--color-secondary)] text-[var(--color-text)]'
           "
           :aria-label="opt.label"
-          @click="form.alinhamento = opt.value"
+          @click="form.alignment = opt.value"
         >
           <UIcon :name="opt.icon" class="w-4 h-4" />
         </UButton>
@@ -59,11 +60,11 @@
     </EditorFormField>
 
     <USeparator />
-
     <EditorFormLabel>Contato</EditorFormLabel>
+
     <EditorFormField label="Telefone">
       <UInput
-        v-model="form.telefone"
+        v-model="form.phone"
         v-maska="'(##) #####-####'"
         placeholder="(11) 90000-0000"
         type="tel"
@@ -89,7 +90,7 @@
 
     <EditorFormField label="Site">
       <UInput
-        v-model="form.site"
+        v-model="form.website"
         placeholder="www.empresa.com.br"
         type="url"
         :ui="inputUi"
@@ -97,8 +98,8 @@
     </EditorFormField>
 
     <USeparator />
-
     <EditorFormLabel>Cores</EditorFormLabel>
+
     <div class="grid grid-cols-2 gap-2.5">
       <EditorFormColorPicker
         v-for="(label, key) in colorFields"
@@ -109,8 +110,8 @@
     </div>
 
     <USeparator />
-
     <EditorFormLabel>Imagem de fundo</EditorFormLabel>
+
     <div class="grid grid-cols-2 gap-2.5">
       <EditorFormField
         v-for="upload in bgUploads"
@@ -149,13 +150,13 @@
     </div>
 
     <USeparator />
-
     <EditorFormLabel>Padrão geométrico</EditorFormLabel>
+
     <EditorFormPatternPicker
-      v-model="form.padrao"
-      v-model:padraoNaFrente="form.padraoNaFrente"
-      :accent-color="form.corDestaque"
-      :bg-color="form.corVerso"
+      v-model="form.pattern"
+      v-model:patternOnFront="form.patternOnFront"
+      :accent-color="form.accentColor"
+      :bg-color="form.backColor"
     />
 
     <UButton
@@ -179,21 +180,21 @@ const isDark = computed(() => colorMode.value === "dark");
 defineProps<{ gerando: boolean; formValido: boolean }>();
 const emit = defineEmits<{ gerar: [] }>();
 
-type ColorKey = "corFundo" | "corTexto" | "corDestaque" | "corVerso";
+type ColorKey = "backgroundColor" | "textColor" | "accentColor" | "backColor";
 type Form = {
-  empresa: string;
-  descricao: string;
-  telefone: string;
+  companyName: string;
+  description: string;
+  phone: string;
   email: string;
-  site: string;
-  corFundo: string;
-  corTexto: string;
-  corDestaque: string;
-  corVerso: string;
-  padrao: string;
-  padraoNaFrente: boolean;
+  website: string;
+  backgroundColor: string;
+  textColor: string;
+  accentColor: string;
+  backColor: string;
+  pattern: string;
+  patternOnFront: boolean;
   bgOpacity: number;
-  alinhamento: "left" | "center" | "right" | "custom";
+  alignment: "left" | "center" | "right" | "custom";
 };
 
 const form = defineModel<Form>("form", { required: true });
@@ -232,15 +233,15 @@ const uploadUi = {
 };
 
 const colorFields: Record<ColorKey, string> = {
-  corFundo: "Fundo frente",
-  corTexto: "Texto",
-  corDestaque: "Destaque",
-  corVerso: "Fundo verso",
+  backgroundColor: "Fundo frente",
+  textColor: "Texto",
+  accentColor: "Destaque",
+  backColor: "Fundo verso",
 };
 
 const bgUploads = [
-  { key: "frente", label: "Frente" },
-  { key: "verso", label: "Verso" },
+  { key: "front", label: "Frente" },
+  { key: "back", label: "Verso" },
 ];
 
 function toBase64(
