@@ -4,7 +4,7 @@
       class="flex flex-col md:grid md:grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden"
     >
       <div
-        class="max-h-[25vh] md:max-h-none md:h-full overflow-hidden border-b md:border-b-0 border-[var(--color-secondary)]"
+        class="max-h-[35vh] md:max-h-none md:h-full order-2 md:order-1 overflow-hidden border-t md:border-t-0 border-[var(--color-secondary)]"
       >
         <EditorForm
           v-model:form="form"
@@ -15,7 +15,7 @@
           @generate="generatePDF"
         />
       </div>
-      <div class="flex-1 min-h-0 overflow-hidden">
+      <div class="order-1 md:order-2 flex-1 min-h-0 overflow-hidden">
         <EditorCardPreview
           ref="previewRef"
           class="h-full w-full"
