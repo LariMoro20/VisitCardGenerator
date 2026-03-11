@@ -256,12 +256,12 @@ const tabs = [
   {
     key: "contact",
     label: "Contato",
-    shortLabel: "Tel",
+    shortLabel: "Contato",
     icon: "mdi:card-account-phone",
   },
   { key: "colors", label: "Cores", shortLabel: "Cor", icon: "mdi:palette" },
   { key: "background", label: "Fundo", shortLabel: "Fundo", icon: "mdi:image" },
-  { key: "pattern", label: "Padrão", shortLabel: "Pat", icon: "mdi:shape" },
+  { key: "pattern", label: "Padrão", shortLabel: "Patrões", icon: "mdi:shape" },
 ];
 
 const currentTab = computed(() => tabs.find((t) => t.key === activeTab.value));
