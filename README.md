@@ -10,6 +10,10 @@
 ![html-to-image](https://img.shields.io/badge/html--to--image-333333?style=for-the-badge&logo=html5&logoColor=white)
 ![maska](https://img.shields.io/badge/maska-7C3AED?style=for-the-badge&logo=vue.js&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+[![Preview](./preview.png)](https://visitcard-larisantos.vercel.app)
+
+
 ## Visão geral
 
 VisitCardGenerator é uma aplicação web para criação de cartões de visita personalizados com download em PDF. Todo o processamento acontece no client, nenhum dado é enviado para servidores.

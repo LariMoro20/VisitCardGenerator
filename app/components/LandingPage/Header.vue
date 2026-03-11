@@ -152,7 +152,7 @@ const navLinks = [
   { label: "Autora", to: "#author" },
   {
     label: "Github",
-    to: "https://github.com/LariMoro20",
+    to: "https://github.com/LariMoro20/VisitCardGenerator",
     target: "_blank",
     icon: "mdi:github",
   },
