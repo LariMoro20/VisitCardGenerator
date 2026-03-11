@@ -104,13 +104,13 @@ npm run build
 O Tailwind v4 usa `oklch()` nas variáveis CSS. O `html2canvas` não suporta essa função de cor e lançava erro na captura. O `html-to-image` usa a API nativa do browser (`foreignObject` em SVG) e lida com CSS moderno sem problemas. A flag `skipFonts: true` é necessária para evitar erro de CORS ao tentar embutir fontes do Google Fonts.
 
 **Por que os componentes de cartão usam 100% `style` inline?**
-O `html-to-image` captura o elemento diretamente do DOM. Classes Tailwind dependem de stylesheets externos — se não resolvidas no clone, o layout quebra. Com `style` inline, o componente é a fonte única de verdade tanto para o preview quanto para o PDF, sem nenhuma lógica de reconstrução.
+O `html-to-image` captura o elemento diretamente do DOM. Classes Tailwind dependem de stylesheets externos, se não resolvidas no clone, o layout quebra. Com `style` inline, o componente é a fonte única de verdade tanto para o preview quanto para o PDF, sem nenhuma lógica de reconstrução.
 
 **Responsividade do preview**
 O cartão tem dimensões fixas em px (520×296) necessárias para o PDF. Para funcionar em telas menores, o preview usa `transform: scale()` calculado dinamicamente. O wrapper compensa o espaço com `width/height` proporcionais ao scale, evitando cortes ou espaços em branco.
 
 **Layouts por rota com `definePageMeta`**
-O Nuxt não usa `router.ts` manual como no Vue puro — o roteamento é baseado em arquivos. Para definir o layout por rota, foi usado `definePageMeta({ layout: 'editor-layout' })`, equivalente ao `meta: {}` do Vue Router tradicional, mas integrado ao sistema de arquivos do Nuxt.
+O Nuxt não usa `router.ts` manual como no Vue puro, o roteamento é baseado em arquivos. Para definir o layout por rota, foi usado `definePageMeta({ layout: 'editor-layout' })`, equivalente ao `meta: {}` do Vue Router tradicional, mas integrado ao sistema de arquivos do Nuxt.
 
 ## Licença
 
