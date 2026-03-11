@@ -1,17 +1,17 @@
 <template>
-  <div class="flex flex-col h-screen overflow-hidden">
+  <div class="flex flex-col h-full overflow-hidden">
     <div
       class="flex flex-col md:grid md:grid-cols-[390px_1fr] flex-1 min-h-0 overflow-hidden"
     >
       <div
-        class="max-h-[25vh] md:max-h-none overflow-y-auto overflow-x-hidden border-b md:border-b-0 border-[var(--color-secondary)]"
+        class="max-h-[25vh] md:max-h-none md:h-full overflow-hidden border-b md:border-b-0 border-[var(--color-secondary)]"
       >
         <EditorForm
           v-model:form="form"
           v-model:logo-preview="logoPreview"
           v-model:bg-images="bgImages"
-          :isGenerating="isGenerating"
-          :form-valido="isFormValid"
+          :is-generating="isGenerating"
+          :form-valid="isFormValid"
           @generate="generatePDF"
         />
       </div>

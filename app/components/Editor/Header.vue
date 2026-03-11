@@ -1,6 +1,6 @@
 <template>
   <header
-    class="px-6 md:px-10 py-4 md:py-5 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
+    class="px-6 md:px-6 py-4 md:py-4 border-b border-[var(--color-secondary)] flex items-center justify-between gap-4"
   >
     <NuxtLink
       to="/"
@@ -10,9 +10,8 @@
       <UColorModeImage
         light="/images/genlogo.png"
         dark="/images/genlogo_white.png"
-        :height="42"
+        :height="32"
         format="webp"
-        class="h-10.5"
       />
     </NuxtLink>
     <h1 class="text-lg md:text-2xl font-normal hidden sm:block">
