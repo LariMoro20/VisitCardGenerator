@@ -1,4 +1,5 @@
 <template>
+  <EditorDonatePopOver />
   <footer
     class="shrink-0 border-t border-[var(--color-secondary)] px-5 py-3 flex items-center justify-center"
   >

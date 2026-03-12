@@ -14,14 +14,8 @@
         format="webp"
       />
     </NuxtLink>
-    <h1 class="text-lg md:text-2xl font-normal hidden sm:block">
-      Gerador de Cartão de Visita
-    </h1>
-    <span
-      class="text-[0.78rem] text-[var(--color-text)] tracking-[.12em] uppercase hidden md:block"
-    >
-      PDF frente e verso
-    </span>
-    <UColorModeButton class="ml-auto md:ml-4" />
+    <h1 class="text-lg md:text-2xl font-normal block">Editor</h1>
+
+    <UColorModeButton class="md:ml-4" />
   </header>
 </template>

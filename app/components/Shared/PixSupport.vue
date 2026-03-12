@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center gap-4 p-6 rounded-2xl border border-white/20 dark:border-[var(--color-secondary)]/20 bg-white/10 dark:bg-[var(--color-secondary)]/5 w-full lg:w-96 shrink-0"
+    class="flex flex-col items-center gap-4 p-6 rounded-2xl border border-white/20 dark:border-[var(--color-secondary)]/20 bg-white/10 dark:bg-[var(--color-secondary)]/5 w-full lg:max-w-96 shrink-0"
   >
     <p
       class="text-sm font-semibold text-white/80 dark:text-[var(--color-text)]/70 tracking-wide"
@@ -14,7 +14,7 @@
         v-for="(option, i) in pixOptions"
         :key="i"
         size="sm"
-        class="cursor-pointer text-white"
+        class="cursor-pointer text-white hover:bg-[var(--color-secondary)]/30 focus:bg-[var(--color-secondary)]"
         :variant="selectedPix === option.value ? 'solid' : 'ghost'"
         :color="selectedPix === option.value ? 'secondary' : 'neutral'"
         @click="selectedPix = option.value"
@@ -27,7 +27,7 @@
         :key="selectedPix"
         :src="currentQr.src"
         :alt="`QR Code Pix ${currentQr.label}`"
-        class="w-62 h-62 rounded-xl object-contain cursor-zoom-in"
+        :class="[qrSize, 'rounded-xl object-contain cursor-zoom-in']"
         @click="selectedIndex = pixIndexMap[selectedPix]"
       />
     </Transition>
@@ -64,18 +64,16 @@ const currentQr = computed(() => qrMap[selectedPix.value]);
 const images = computed(() =>
   pixOptions.map((o) => qrMap[o.value as keyof typeof qrMap].src),
 );
-</script>
 
-<style scoped>
-.qr-fade-enter-active,
-.qr-fade-leave-active {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-}
-.qr-fade-enter-from,
-.qr-fade-leave-to {
-  opacity: 0;
-  transform: scale(0.95);
-}
-</style>
+const props = defineProps<{
+  size?: "sm" | "md" | "lg";
+}>();
+
+const sizeMap = {
+  sm: "w-30 h-30",
+  md: "w-40 h-40",
+  lg: "w-62 h-62",
+};
+
+const qrSize = computed(() => sizeMap[props.size ?? "lg"]);
+</script>
