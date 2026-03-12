@@ -6,6 +6,7 @@
     <LandingPageCTA />
     <LandingPageFAQ />
     <LandingPageAuthor />
+    <LandingPageDonate />
     <LandingPageProjectStack />
   </div>
 </template>
