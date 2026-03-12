@@ -261,7 +261,7 @@ const tabs = [
   },
   { key: "colors", label: "Cores", shortLabel: "Cor", icon: "mdi:palette" },
   { key: "background", label: "Fundo", shortLabel: "Fundo", icon: "mdi:image" },
-  { key: "pattern", label: "Padrão", shortLabel: "Patrões", icon: "mdi:shape" },
+  { key: "pattern", label: "Padrão", shortLabel: "Padrões", icon: "mdi:shape" },
 ];
 
 const currentTab = computed(() => tabs.find((t) => t.key === activeTab.value));
