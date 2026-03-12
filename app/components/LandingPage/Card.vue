@@ -30,11 +30,15 @@
             {{ tab.label }}
           </button>
         </div>
-        <div class="w-full flex justify-center py-10 px-6">
+
+        <div
+          class="w-full flex justify-center py-4 sm:py-10 px-6"
+          style="min-height: 220px"
+        >
           <div :style="flipWrapperStyle">
             <div
               ref="cardRef"
-              class="rounded-2xl shadow-[0_28px_72px_rgba(0,0,0,0.65)] shrink-0 lg:scale-[1.3]"
+              class="rounded-2xl shadow-[0_28px_72px_rgba(0,0,0,0.65)] shrink-0 scale-[0.62] sm:scale-[0.8] md:scale-90 lg:scale-[1.3]"
               :style="cardStyle"
               @mousemove="onMouseMove"
               @mouseleave="onMouseLeave"
