@@ -129,6 +129,10 @@
         <span :style="iconWrap" v-html="globeIcon" />
         <span style="line-height: 1">{{ website }}</span>
       </div>
+      <div v-if="address" :style="contactRow">
+        <span :style="iconWrap" v-html="addressIcon" />
+        <span style="line-height: 1">{{ address }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -142,6 +146,7 @@ const props = defineProps<{
   phone: string;
   email: string;
   website: string;
+  address: string;
   backgroundColor: string;
   textColor: string;
   accentColor: string;
@@ -314,5 +319,8 @@ const emailIcon = icon(
 );
 const globeIcon = icon(
   `<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>`,
+);
+const addressIcon = icon(
+  `<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>`,
 );
 </script>

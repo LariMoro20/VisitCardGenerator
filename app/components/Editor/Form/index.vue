@@ -133,6 +133,14 @@
               :ui="inputUi"
             />
           </EditorFormField>
+          <EditorFormField label="Endereço">
+            <UInput
+              v-model="form.address"
+              placeholder="Rua da empresa"
+              type="text"
+              :ui="inputUi"
+            />
+          </EditorFormField>
         </template>
 
         <template v-if="activeTab === 'colors'">
@@ -227,6 +235,7 @@ type Form = {
   phone: string;
   email: string;
   website: string;
+  address: string;
   backgroundColor: string;
   textColor: string;
   accentColor: string;
