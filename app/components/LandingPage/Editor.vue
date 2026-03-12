@@ -1,65 +1,71 @@
 <template>
-  <UContainer id="editor" class="scroll-mt-20 min-h-screen">
-    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
-      <div class="py-8 lg:py-12 text-center flex flex-col items-center gap-4">
-        <h2
-          class="text-3xl lg:text-4xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
-        >
-          Conheça o editor
-        </h2>
-        <p class="text-[var(--color-primary)]/80 dark:text-white/80 text-base">
-          Cada detalhe pensado para você. Escolha cores, adicione seu logotipo,
-          defina padrões geométricos e imagens de fundo. Tudo em
-          <b>tempo real</b>, com <b>preview instantâneo</b>. Quando estiver
-          pronto, baixe o PDF com frente e verso no tamanho exato para impressão
-          profissional.
-        </p>
-      </div>
-    </AnimationsReveal>
-    <UPageGrid>
-      <AnimationsReveal
-        v-for="(card, i) in cards"
-        :key="i"
-        type="fade-slide"
-        direction="up"
-        :delay="i * 0.5"
-        class="h-full"
-      >
-        <UPageCard
-          v-bind="{ ...card, title: undefined, description: undefined }"
+  <UPageSection
+    id="editor"
+    class="min-h-screen flex column items-center bg-[var(--color-primary)]/3 dark:bg-[var(--color-secondary)]/5 border border-[var(--color-primary)]/10 dark:border-[var(--color-secondary)]/10"
+  >
+    <UContainer>
+      <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+        <div class="py-8 lg:pb-12 text-center flex flex-col items-center gap-4">
+          <h2
+            class="text-3xl lg:text-4xl font-bold text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
+          >
+            Conheça o editor
+          </h2>
+          <p
+            class="text-[var(--color-primary)]/90 dark:text-white/80 text-base"
+          >
+            Cada detalhe pensado para você. Escolha cores, adicione seu
+            logotipo, defina padrões geométricos e imagens de fundo. Tudo em
+            <b>tempo real</b>, com <b>preview instantâneo</b>. Quando estiver
+            pronto, baixe o PDF com frente e verso no tamanho exato para
+            impressão profissional.
+          </p>
+        </div>
+      </AnimationsReveal>
+      <UPageGrid>
+        <AnimationsReveal
+          v-for="(card, i) in cards"
+          :key="i"
+          type="fade-slide"
+          direction="up"
+          :delay="i * 0.5"
           class="h-full"
-          @click="selectedIndex = i"
         >
-          <div class="flex items-center gap-3 lg:block">
-            <nuxt-img
-              v-if="card.image"
-              :src="card.image.path"
-              :alt="card.alt"
-              class="w-1/4 rounded-md shrink-0 lg:w-full"
-              loading="lazy"
-            />
-            <div class="lg:hidden">
-              <p class="font-semibold text-sm text-[var(--color-text)]">
+          <UPageCard
+            v-bind="{ ...card, title: undefined, description: undefined }"
+            class="h-full"
+            @click="selectedIndex = i"
+          >
+            <div class="flex items-center gap-3 lg:block">
+              <nuxt-img
+                v-if="card.image"
+                :src="card.image.path"
+                :alt="card.alt"
+                class="w-1/4 rounded-md shrink-0 lg:w-full"
+                loading="lazy"
+              />
+              <div class="lg:hidden">
+                <p class="font-semibold text-sm text-[var(--color-text)]">
+                  {{ card.title }}
+                </p>
+                <p class="text-xs text-[var(--color-text)]/70 mt-1">
+                  {{ card.description }}
+                </p>
+              </div>
+            </div>
+            <div class="hidden lg:block mt-2">
+              <p class="font-semibold text-[var(--color-text)]">
                 {{ card.title }}
               </p>
-              <p class="text-xs text-[var(--color-text)]/70 mt-1">
+              <p class="text-sm text-[var(--color-text)]/70 mt-1">
                 {{ card.description }}
               </p>
             </div>
-          </div>
-          <div class="hidden lg:block mt-2">
-            <p class="font-semibold text-[var(--color-text)]">
-              {{ card.title }}
-            </p>
-            <p class="text-sm text-[var(--color-text)]/70 mt-1">
-              {{ card.description }}
-            </p>
-          </div>
-        </UPageCard>
-      </AnimationsReveal>
-    </UPageGrid>
-  </UContainer>
-
+          </UPageCard>
+        </AnimationsReveal>
+      </UPageGrid>
+    </UContainer>
+  </UPageSection>
   <LandingPageLightbox v-if="cards" v-model="selectedIndex" :images="images" />
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <UContainer id="example" class="py-16 scroll-mt-20">
+  <UPageSection id="example" class="py-16 scroll-mt-20">
     <AnimationsReveal :duration="2" direction="up" type="fade-slide">
       <h2
         class="text-2xl lg:text-3xl font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)]"
@@ -52,7 +52,7 @@
         </div>
       </div>
     </AnimationsReveal>
-  </UContainer>
+  </UPageSection>
 </template>
 
 <script setup lang="ts">

@@ -41,6 +41,12 @@
           :src="selectedImage"
           class="max-w-full max-h-[90vh] rounded-xl object-contain shadow-2xl"
         />
+        <p
+          v-if="captions?.[modelValue!]"
+          class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm text-center"
+        >
+          {{ captions[modelValue!] }}
+        </p>
       </div>
     </Transition>
   </Teleport>
@@ -50,6 +56,7 @@
 const props = defineProps<{
   images: string[];
   modelValue: number | null;
+  captions?: string[];
 }>();
 
 const emit = defineEmits<{

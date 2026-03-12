@@ -1,23 +1,25 @@
 <template>
-  <UContainer class="py-16 scroll-mt-20" id="faq">
-    <AnimationsReveal :duration="2" direction="up" type="fade-slide">
-      <h2
-        class="text-3xl lg:text-4xl font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)] mb-10"
-      >
-        Dúvidas frequentes
-      </h2>
+  <section id="faq" class="py-12 scroll-mt-15 px-6">
+    <UContainer class="">
+      <AnimationsReveal :duration="2" direction="up" type="fade-slide">
+        <h2
+          class="text-3xl lg:text-4xl font-bold text-center text-[var(--color-primary)] dark:text-[var(--color-secondary)] mb-10"
+        >
+          Dúvidas frequentes
+        </h2>
 
-      <div class="mx-auto pb-4">
-        <UAccordion
-          :items="faq"
-          :ui="{
-            item: 'border border-[var(--color-secondary)]/30 rounded-xl mb-2 px-4 hover:border-[var(--color-secondary)] transition-colors cursor-pointer',
-            trigger: 'cursor-pointer',
-          }"
-        />
-      </div>
-    </AnimationsReveal>
-  </UContainer>
+        <div class="mx-auto">
+          <UAccordion
+            :items="faq"
+            :ui="{
+              item: 'border border-[var(--color-secondary)]/40 rounded-xl mb-2 px-4 hover:border-[var(--color-secondary)] transition-colors cursor-pointer',
+              trigger: 'cursor-pointer',
+            }"
+          />
+        </div>
+      </AnimationsReveal>
+    </UContainer>
+  </section>
 </template>
 
 <script setup lang="ts">

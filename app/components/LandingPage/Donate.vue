@@ -17,7 +17,7 @@
             para que possam vir ainda mais melhorias. Cada café conta!
           </p>
         </div>
-        <SharedPixSupport />
+        <SharedPixSupport size="md" />
       </div>
     </AnimationsReveal>
   </UPageSection>
