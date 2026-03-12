@@ -3,7 +3,7 @@
     <UButton
       aria-label="Apoie o projeto"
       variant="ghost"
-      class="fixed top-15 md:top-auto md:bottom-150 right-6 z-50 group cursor-pointer font-semibold rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] dark:hover:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]"
+      class="fixed top-20 md:top-auto md:bottom-150 right-6 z-50 group cursor-pointer font-semibold rounded-full bg-[var(--color-primary)] hover:bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] dark:hover:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]"
       size="lg"
     >
       ☕
