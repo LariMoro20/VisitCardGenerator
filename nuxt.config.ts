@@ -43,7 +43,7 @@ export default defineNuxtConfig({
       titleTemplate: "%s | VisitCardGenerator",
       htmlAttrs: { lang: "pt-BR" },
       meta: [
-        { name: "theme-color", content: "#111111" },
+        { name: "theme-color", content: "#0b2a4a" },
         { name: "robots", content: "index, follow" },
         { name: "author", content: "Larissa Santos" },
         {
