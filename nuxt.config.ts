@@ -46,6 +46,10 @@ export default defineNuxtConfig({
         { name: "theme-color", content: "#111111" },
         { name: "robots", content: "index, follow" },
         { name: "author", content: "Larissa Santos" },
+        {
+          name: "google-site-verification",
+          content: "DB1TeepVPdAuIKldl5LXQHnY7hbD9Fm9aBOa5uPrUDI",
+        },
       ],
       link: [
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
