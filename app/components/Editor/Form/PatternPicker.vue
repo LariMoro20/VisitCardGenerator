@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col gap-4">
 
-    <!-- Padrão do Verso -->
     <div class="flex flex-col gap-2">
       <span class="text-[.72rem] font-semibold tracking-[.1em] uppercase opacity-60">
         Verso
@@ -30,7 +29,6 @@
       </div>
     </div>
 
-    <!-- Checkbox -->
     <div class="flex items-center gap-2.5">
       <UCheckbox
         v-model="patternOnFront"
