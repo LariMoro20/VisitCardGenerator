@@ -198,7 +198,6 @@
           <EditorFormPatternPicker
             v-model="form.pattern"
             v-model:patternOnFront="form.patternOnFront"
-            v-model:patternFront="form.patternFront"
             :accent-color="form.accentColor"
             :bg-color="form.backColor"
           />
@@ -243,7 +242,6 @@ type Form = {
   backColor: string;
   pattern: string;
   patternOnFront: boolean;
-  patternFront: string;
   bgOpacity: number;
   alignment: "left" | "center" | "right" | "custom";
   logoSize: "sm" | "md" | "lg";

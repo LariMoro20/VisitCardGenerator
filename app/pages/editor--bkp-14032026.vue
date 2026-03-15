@@ -57,7 +57,6 @@ const form = reactive({
   backColor: "#111827",
   pattern: "circles",
   patternOnFront: false,
-  patternFront: "solid",
   bgOpacity: 0.55,
   alignment: "custom" as "left" | "center" | "right" | "custom",
   logoSize: "md" as "sm" | "md" | "lg",
@@ -87,7 +86,7 @@ const cardFrontProps = computed(() => ({
   bgImage: bgImages.value.front,
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
-  pattern: form.patternOnFront ? form.patternFront : "solid",
+  pattern: form.patternOnFront ? form.pattern : "solid",
   alignment: form.alignment,
   logoSize: form.logoSize,
 }));
