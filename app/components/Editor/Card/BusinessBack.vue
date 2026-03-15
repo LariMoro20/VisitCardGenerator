@@ -13,7 +13,7 @@
     <svg
       viewBox="0 0 520 296"
       preserveAspectRatio="xMidYMid slice"
-      :style="layerFull"
+      :style="{ ...layerFull, opacity: patternOpacity }"
       v-html="patternSvg"
     />
     <div
@@ -76,10 +76,13 @@ const props = defineProps<{
   bgOpacity: number;
   logo?: string | null;
   pattern: string;
+  patternOpacity?: number;
   logoSize?: "sm" | "md" | "lg";
 }>();
 
 const { backgroundColor, bgOpacity, pattern, accentColor } = toRefs(props);
+
+const patternOpacity = computed(() => props.patternOpacity ?? 1);
 
 const initial = computed(() => props.companyName?.[0]?.toUpperCase() ?? "?");
 const patternSvg = computed(

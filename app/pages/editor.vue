@@ -13,6 +13,7 @@
           :is-generating="isGenerating"
           :form-valid="isFormValid"
           @generate="generatePDF"
+          @reset="confirmReset"
         />
       </div>
       <div class="order-1 md:order-2 flex-1 min-h-0 overflow-hidden">
@@ -25,6 +26,21 @@
       </div>
     </div>
   </div>
+
+  <UModal v-model:open="showResetConfirm" title="Limpar tudo?">
+    <template #body>
+      <p class="text-sm text-[var(--color-text)] opacity-75">
+        Todos os dados preenchidos, cores, padrões e imagens serão apagados.<br />
+        Essa ação não pode ser desfeita.
+      </p>
+    </template>
+    <template #footer>
+      <div class="flex gap-2 justify-end w-full">
+        <UButton variant="ghost" @click="showResetConfirm = false" color="neutral">Cancelar</UButton>
+        <UButton color="error" @click="doReset" class="text-white">Sim, limpar tudo</UButton>
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
@@ -44,7 +60,11 @@ useSeoMeta({
     "Personalize cores, logo, padrões geométricos e imagem de fundo. Baixe seu cartão de visita em PDF com frente e verso em segundos.",
 });
 
-const form = reactive({
+const STORAGE_KEY = "visitcard:form";
+const STORAGE_IMAGES_KEY = "visitcard:images";
+const STORAGE_LOGO_KEY = "visitcard:logo";
+
+const DEFAULT_FORM = {
   companyName: "",
   description: "",
   phone: "",
@@ -58,16 +78,81 @@ const form = reactive({
   pattern: "circles",
   patternOnFront: false,
   patternFront: "solid",
+  patternOpacity: 1,
   bgOpacity: 0.55,
   alignment: "custom" as "left" | "center" | "right" | "custom",
   logoSize: "md" as "sm" | "md" | "lg",
+};
+
+function loadForm() {
+  if (!import.meta.client) return { ...DEFAULT_FORM };
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? { ...DEFAULT_FORM, ...JSON.parse(saved) } : { ...DEFAULT_FORM };
+  } catch {
+    return { ...DEFAULT_FORM };
+  }
+}
+
+function loadImages() {
+  if (!import.meta.client) return { front: null, back: null };
+  try {
+    const saved = localStorage.getItem(STORAGE_IMAGES_KEY);
+    return saved ? JSON.parse(saved) : { front: null, back: null };
+  } catch {
+    return { front: null, back: null };
+  }
+}
+
+function loadLogo() {
+  if (!import.meta.client) return null;
+  try {
+    return localStorage.getItem(STORAGE_LOGO_KEY) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+const form = reactive(loadForm());
+const logoPreview = ref<string | null>(loadLogo());
+const bgImages = ref<Record<string, string | null>>(loadImages());
+
+watch(
+  () => ({ ...form }),
+  (val) => {
+    if (!import.meta.client) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(val)); } catch {}
+  },
+  { deep: true }
+);
+
+watch(bgImages, (val) => {
+  if (!import.meta.client) return;
+  try { localStorage.setItem(STORAGE_IMAGES_KEY, JSON.stringify(val)); } catch {}
+}, { deep: true });
+
+watch(logoPreview, (val) => {
+  if (!import.meta.client) return;
+  try {
+    if (val) localStorage.setItem(STORAGE_LOGO_KEY, val);
+    else localStorage.removeItem(STORAGE_LOGO_KEY);
+  } catch {}
 });
 
-const logoPreview = ref<string | null>(null);
-const bgImages = ref<Record<string, string | null>>({
-  front: null,
-  back: null,
-});
+const showResetConfirm = ref(false);
+function confirmReset() { showResetConfirm.value = true; }
+function doReset() {
+  Object.assign(form, { ...DEFAULT_FORM });
+  logoPreview.value = null;
+  bgImages.value = { front: null, back: null };
+  if (import.meta.client) {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_IMAGES_KEY);
+    localStorage.removeItem(STORAGE_LOGO_KEY);
+  }
+  showResetConfirm.value = false;
+}
+
 const isGenerating = ref(false);
 const previewRef = ref<{
   cardFrenteRef: { $el: HTMLElement } | null;
@@ -88,6 +173,7 @@ const cardFrontProps = computed(() => ({
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   pattern: form.patternOnFront ? form.patternFront : "solid",
+  patternOpacity: form.patternOpacity,
   alignment: form.alignment,
   logoSize: form.logoSize,
 }));
@@ -102,6 +188,7 @@ const cardBackProps = computed(() => ({
   bgOpacity: form.bgOpacity,
   logo: logoPreview.value,
   pattern: form.pattern,
+  patternOpacity: form.patternOpacity,
   logoSize: form.logoSize,
 }));
 
