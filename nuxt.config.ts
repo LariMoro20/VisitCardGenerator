@@ -28,6 +28,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/seo",
     "@vercel/analytics",
+    "@pinia/nuxt",
   ],
 
   image: {
