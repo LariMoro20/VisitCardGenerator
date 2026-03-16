@@ -31,6 +31,7 @@ const projectTechs = [
   { label: "Nuxt 3", icon: "devicon:nuxt" },
   { label: "NuxtUI", icon: "devicon:nuxt" },
   { label: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+  { label: "Pinia", icon: "logos:pinia" },
   { label: "TypeScript", icon: "skill-icons:typescript" },
   { label: "jsPDF", icon: "skill-icons:javascript" },
   { label: "html-to-image", icon: "skill-icons:javascript" },
