@@ -1,4 +1,13 @@
 <template>
+  <NuxtLoadingIndicator
+    color="#c9a96e"
+    :height="5"
+    :throttle="0"
+    :throttle-min="200"
+    :duration="3000"
+    error-color="red"
+  />
+
   <UApp>
     <NuxtLayout>
       <NuxtPage />

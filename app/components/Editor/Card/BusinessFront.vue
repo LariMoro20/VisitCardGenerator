@@ -15,7 +15,7 @@
       v-if="pattern !== 'solid'"
       viewBox="0 0 520 296"
       preserveAspectRatio="xMidYMid slice"
-      :style="layerFull"
+      :style="{ ...layerFull, opacity: patternOpacity }"
       v-html="patternSvg"
     />
 
@@ -154,12 +154,15 @@ const props = defineProps<{
   bgOpacity: number;
   logo?: string | null;
   pattern: string;
+  patternOpacity?: number;
   alignment?: "left" | "center" | "right" | "custom";
   logoSize?: "sm" | "md" | "lg";
 }>();
 
 const { backgroundColor, textColor, accentColor, bgOpacity, pattern } =
   toRefs(props);
+
+const patternOpacity = computed(() => props.patternOpacity ?? 1);
 
 const alignment = computed(() => props.alignment ?? "custom");
 const initial = computed(() => props.companyName?.[0]?.toUpperCase() ?? "?");

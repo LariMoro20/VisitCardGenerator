@@ -198,24 +198,52 @@
           <EditorFormPatternPicker
             v-model="form.pattern"
             v-model:patternOnFront="form.patternOnFront"
+            v-model:patternFront="form.patternFront"
             :accent-color="form.accentColor"
             :bg-color="form.backColor"
           />
+          <EditorFormField label="Intensidade do padrão">
+            <div class="flex items-center gap-2.5">
+              <div class="flex-1 min-w-0">
+                <USlider
+                  v-model="form.patternOpacity"
+                  :min="0.1"
+                  :max="2"
+                  :step="0.05"
+                  :ui="{ root: 'w-full' }"
+                />
+              </div>
+              <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right">
+                {{ Math.round(form.patternOpacity * 100) }}%
+              </span>
+            </div>
+          </EditorFormField>
         </template>
       </div>
 
       <div class="shrink-0 px-4 py-3 border-t border-[var(--color-secondary)]">
-        <UButton
-          block
-          size="lg"
-          :loading="isGenerating"
-          :disabled="!formValid || isGenerating"
-          :color="isDark ? 'secondary' : 'primary'"
-          class="text-white hover:opacity-90"
-          @click="emit('generate')"
-        >
-          {{ isGenerating ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
-        </UButton>
+        <div class="flex gap-2">
+          <UButton
+            variant="ghost"
+            size="lg"
+            class="shrink-0 text-[var(--color-text)] opacity-50 hover:opacity-80"
+            title="Limpar tudo"
+            @click="emit('reset')"
+          >
+            <UIcon name="mdi:trash-can-outline" class="w-5 h-5" />
+          </UButton>
+          <UButton
+            block
+            size="lg"
+            :loading="isGenerating"
+            :disabled="!formValid || isGenerating"
+            :color="isDark ? 'secondary' : 'primary'"
+            class="text-white hover:opacity-90"
+            @click="emit('generate')"
+          >
+            {{ isGenerating ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
+          </UButton>
+        </div>
       </div>
     </div>
   </aside>
@@ -226,7 +254,7 @@ const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
 defineProps<{ isGenerating: boolean; formValid: boolean }>();
-const emit = defineEmits<{ generate: [] }>();
+const emit = defineEmits<{ generate: []; reset: [] }>();
 
 type ColorKey = "backgroundColor" | "textColor" | "accentColor" | "backColor";
 type Form = {
@@ -242,6 +270,8 @@ type Form = {
   backColor: string;
   pattern: string;
   patternOnFront: boolean;
+  patternFront: string;
+  patternOpacity: number;
   bgOpacity: number;
   alignment: "left" | "center" | "right" | "custom";
   logoSize: "sm" | "md" | "lg";
