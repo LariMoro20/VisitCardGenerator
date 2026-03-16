@@ -9,11 +9,7 @@
         v-for="tab in tabs"
         :key="tab.key"
         class="w-10 h-10 rounded-lg flex flex-col items-center justify-center gap-0.5 transition-colors cursor-pointer border-0"
-        :class="
-          activeTab === tab.key
-            ? 'bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]'
-            : 'text-[var(--color-text)] hover:bg-[var(--color-secondary)]/20'
-        "
+        :class="activeTab === tab.key ? activeTabBtn : inactiveTabBtn"
         :title="tab.label"
         @click="activeTab = tab.key"
       >
@@ -41,7 +37,7 @@
               accept="image/*"
               :ui="uploadUi"
               @update:model-value="
-                (file) => toBase64(file, (v) => (logoPreview = v))
+                (file) => toBase64(file, (v) => (store.logoPreview = v))
               "
             />
           </EditorFormField>
@@ -53,8 +49,10 @@
                 variant="ghost"
                 size="xs"
                 class="flex-1 justify-center transition-colors"
-                :class="form.logoSize === opt.value ? activeBtn : inactiveBtn"
-                @click="form.logoSize = opt.value"
+                :class="
+                  store.form.logoSize === opt.value ? activeBtn : inactiveBtn
+                "
+                @click="store.form.logoSize = opt.value"
                 >{{ opt.label }}</UButton
               >
             </div>
@@ -67,17 +65,18 @@
                 variant="ghost"
                 size="xs"
                 class="flex-1 justify-center transition-colors"
-                :class="form.alignment === opt.value ? activeBtn : inactiveBtn"
+                :class="
+                  store.form.alignment === opt.value ? activeBtn : inactiveBtn
+                "
                 :aria-label="opt.label"
-                @click="form.alignment = opt.value"
-              >
-                <UIcon :name="opt.icon" class="w-4 h-4" />
-              </UButton>
+                @click="store.form.alignment = opt.value"
+                ><UIcon :name="opt.icon" class="w-4 h-4"
+              /></UButton>
             </div>
           </EditorFormField>
           <EditorFormField label="Nome da empresa">
             <UInput
-              v-model="form.companyName"
+              v-model="store.form.companyName"
               placeholder="Ex: Studio Forma"
               :maxlength="50"
               :ui="inputUi"
@@ -86,7 +85,7 @@
           <EditorFormField label="Descrição / tagline">
             <div class="flex flex-col gap-1">
               <UTextarea
-                v-model="form.description"
+                v-model="store.form.description"
                 placeholder="Descreva sua empresa em algumas palavras…"
                 :maxlength="200"
                 :rows="3"
@@ -94,7 +93,7 @@
               />
               <span
                 class="text-[.72rem] text-[var(--color-placeholder)] text-right px-1"
-                >{{ form.description.length }}/200</span
+                >{{ store.form.description.length }}/200</span
               >
             </div>
           </EditorFormField>
@@ -103,7 +102,7 @@
         <template v-if="activeTab === 'contact'">
           <EditorFormField label="Telefone">
             <UInput
-              v-model="form.phone"
+              v-model="store.form.phone"
               v-maska="'(##) #####-####'"
               placeholder="(11) 90000-0000"
               type="tel"
@@ -113,13 +112,13 @@
           <EditorFormField label="E-mail">
             <div class="flex flex-col gap-1">
               <UInput
-                v-model="form.email"
+                v-model="store.form.email"
                 placeholder="contato@empresa.com.br"
                 type="email"
                 :ui="inputUi"
               />
               <span
-                v-if="form.email && !emailValido"
+                v-if="store.form.email && !emailValido"
                 class="text-[.72rem] text-[var(--color-negative)] px-1"
                 >E-mail inválido</span
               >
@@ -127,7 +126,7 @@
           </EditorFormField>
           <EditorFormField label="Site">
             <UInput
-              v-model="form.website"
+              v-model="store.form.website"
               placeholder="www.empresa.com.br"
               type="url"
               :ui="inputUi"
@@ -135,7 +134,7 @@
           </EditorFormField>
           <EditorFormField label="Endereço">
             <UInput
-              v-model="form.address"
+              v-model="store.form.address"
               placeholder="Rua da empresa"
               type="text"
               :ui="inputUi"
@@ -148,7 +147,7 @@
             <EditorFormColorPicker
               v-for="(label, key) in colorFields"
               :key="key"
-              v-model="form[key as ColorKey]"
+              v-model="store.form[key as ColorKey]"
               :label="label"
             />
           </div>
@@ -169,7 +168,11 @@
                   (file) =>
                     toBase64(
                       file,
-                      (v) => (bgImages = { ...bgImages, [upload.key]: v }),
+                      (v) =>
+                        (store.bgImages = {
+                          ...store.bgImages,
+                          [upload.key]: v,
+                        }),
                     )
                 "
               />
@@ -179,7 +182,7 @@
             <div class="flex items-center gap-2.5">
               <div class="flex-1 min-w-0">
                 <USlider
-                  v-model="form.bgOpacity"
+                  v-model="store.form.bgOpacity"
                   :min="0"
                   :max="1"
                   :step="0.05"
@@ -188,7 +191,7 @@
               </div>
               <span
                 class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right"
-                >{{ Math.round(form.bgOpacity * 100) }}%</span
+                >{{ Math.round(store.form.bgOpacity * 100) }}%</span
               >
             </div>
           </EditorFormField>
@@ -196,94 +199,127 @@
 
         <template v-if="activeTab === 'pattern'">
           <EditorFormPatternPicker
-            v-model="form.pattern"
-            v-model:patternOnFront="form.patternOnFront"
-            v-model:patternFront="form.patternFront"
-            :accent-color="form.accentColor"
-            :bg-color="form.backColor"
+            v-model="store.form.pattern"
+            v-model:patternOnFront="store.form.patternOnFront"
+            v-model:patternFront="store.form.patternFront"
+            :accent-color="store.form.accentColor"
+            :bg-color="store.form.backColor"
           />
           <EditorFormField label="Intensidade do padrão">
             <div class="flex items-center gap-2.5">
               <div class="flex-1 min-w-0">
                 <USlider
-                  v-model="form.patternOpacity"
+                  v-model="store.form.patternOpacity"
                   :min="0.1"
                   :max="2"
                   :step="0.05"
                   :ui="{ root: 'w-full' }"
                 />
               </div>
-              <span class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right">
-                {{ Math.round(form.patternOpacity * 100) }}%
-              </span>
+              <span
+                class="text-[.78rem] text-[var(--color-text)] min-w-8 text-right"
+                >{{ Math.round(store.form.patternOpacity * 100) }}%</span
+              >
             </div>
           </EditorFormField>
         </template>
       </div>
 
       <div class="shrink-0 px-4 py-3 border-t border-[var(--color-secondary)]">
-        <div class="flex gap-2">
+        <div class="flex gap-2 mb-2">
           <UButton
             variant="ghost"
             size="lg"
-            class="shrink-0 text-[var(--color-text)] opacity-50 hover:opacity-80"
+            class="cursor-pointer shrink-0 text-[var(--color-text)] opacity-50 hover:opacity-80"
             title="Limpar tudo"
-            @click="emit('reset')"
+            @click="showResetConfirm = true"
           >
             <UIcon name="mdi:trash-can-outline" class="w-5 h-5" />
           </UButton>
           <UButton
             block
             size="lg"
-            :loading="isGenerating"
-            :disabled="!formValid || isGenerating"
+            class="cursor-pointer"
+            variant="outline"
             :color="isDark ? 'secondary' : 'primary'"
-            class="text-white hover:opacity-90"
-            @click="emit('generate')"
+            @click="handleSave"
           >
-            {{ isGenerating ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
+            <UIcon name="mdi:content-save-outline" class="w-4 h-4" />
+            Salvar
           </UButton>
         </div>
+        <UButton
+          block
+          size="lg"
+          :loading="isGenerating"
+          :disabled="!store.isFormValid || isGenerating"
+          :color="isDark ? 'secondary' : 'primary'"
+          class="text-white hover:opacity-90"
+          @click="emit('generate')"
+        >
+          {{ isGenerating ? "Gerando PDF…" : "↓ Baixar PDF (frente + verso)" }}
+        </UButton>
       </div>
     </div>
   </aside>
+
+  <UModal v-model:open="showResetConfirm" title="Limpar tudo?">
+    <template #body>
+      <p class="text-sm text-[var(--color-text)] opacity-75">
+        Todos os dados preenchidos, cores, padrões e imagens serão apagados.<br />
+        Essa ação não pode ser desfeita.
+      </p>
+    </template>
+    <template #footer>
+      <div class="flex gap-2 justify-end w-full">
+        <UButton
+          variant="ghost"
+          color="neutral"
+          @click="showResetConfirm = false"
+          >Cancelar</UButton
+        >
+        <UButton color="error" class="text-white" @click="doReset"
+          >Sim, limpar tudo</UButton
+        >
+      </div>
+    </template>
+  </UModal>
 </template>
 
 <script setup lang="ts">
+type ColorKey = "backgroundColor" | "textColor" | "accentColor" | "backColor";
+
+defineProps<{ isGenerating: boolean }>();
+const emit = defineEmits<{ generate: [] }>();
+
+const store = useEditorStore();
 const colorMode = useColorMode();
 const isDark = computed(() => colorMode.value === "dark");
 
-defineProps<{ isGenerating: boolean; formValid: boolean }>();
-const emit = defineEmits<{ generate: []; reset: [] }>();
-
-type ColorKey = "backgroundColor" | "textColor" | "accentColor" | "backColor";
-type Form = {
-  companyName: string;
-  description: string;
-  phone: string;
-  email: string;
-  website: string;
-  address: string;
-  backgroundColor: string;
-  textColor: string;
-  accentColor: string;
-  backColor: string;
-  pattern: string;
-  patternOnFront: boolean;
-  patternFront: string;
-  patternOpacity: number;
-  bgOpacity: number;
-  alignment: "left" | "center" | "right" | "custom";
-  logoSize: "sm" | "md" | "lg";
-};
-
-const form = defineModel<Form>("form", { required: true });
-const logoPreview = defineModel<string | null>("logoPreview");
-const bgImages = defineModel<Record<string, string | null>>("bgImages", {
-  required: true,
-});
-
 const activeTab = ref("identity");
+const showResetConfirm = ref(false);
+const currentTab = computed(() => tabs.find((t) => t.key === activeTab.value));
+const emailValido = computed(() =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.form.email),
+);
+
+const toast = useToast();
+
+function handleSave() {
+  store.save();
+  toast.add({
+    title: "Progresso salvo!",
+    description: "Seus dados foram salvos no navegador.",
+    color: "success",
+    icon: "mdi:check-circle-outline",
+    duration: 3000,
+  });
+}
+
+function doReset() {
+  store.reset();
+  showResetConfirm.value = false;
+}
 
 const tabs = [
   {
@@ -303,12 +339,10 @@ const tabs = [
   { key: "pattern", label: "Padrão", shortLabel: "Padrões", icon: "mdi:shape" },
 ];
 
-const currentTab = computed(() => tabs.find((t) => t.key === activeTab.value));
-
-const emailValido = computed(() =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email),
-);
-
+const activeTabBtn =
+  "bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]";
+const inactiveTabBtn =
+  "text-[var(--color-text)] hover:bg-[var(--color-secondary)]/20";
 const activeBtn =
   "bg-[var(--color-primary)] dark:bg-[var(--color-secondary)] text-white dark:text-[var(--color-primary)]";
 const inactiveBtn =
